@@ -36,6 +36,7 @@
         self.id_supplier = ko.observable('');
         self.barang_diterima = ko.observable('');
         self.jml_dibayar = ko.observable('');
+        self.catatan = ko.observable('');
         // self.sisa_tagihan=ko.observable();
 
         self.opt_supplier = ko.observableArray(<?= $opt_supplier ?>);
@@ -79,7 +80,7 @@
             sisa_tagihan = (curency_to_float(self.total())) - curency_to_float(self.jml_dibayar());
 
             sisa_tagihan = float_to_currency(sisa_tagihan);
-            
+
             return sisa_tagihan;
         });
 

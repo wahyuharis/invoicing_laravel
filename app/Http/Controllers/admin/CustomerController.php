@@ -23,7 +23,6 @@ class CustomerController extends Controller
                 nama_customer like ?
                 or email like ?
                 or phone like ?
-                
             )
             ",["%{$searchTerm}%", "%{$searchTerm}%", "%{$searchTerm}%"] )
             ->paginate(5);

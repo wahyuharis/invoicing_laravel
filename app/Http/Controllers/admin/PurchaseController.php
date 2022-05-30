@@ -150,7 +150,7 @@ class PurchaseController extends Controller
                 $insert3['keperluan'] = "purchasing";
                 $insert3['tabel'] = "purchase";
                 $insert3['id_tabel'] = $insert_id;
-                $insert3['total'] = floatval2($ko_array['jml_dibayar']);
+                $insert3['total'] = floatval2($ko_array['jml_dibayar']) * (-1);
                 $insert3['keterangan'] = "Pembelian Barang";
 
                 $db2 = DB::table('cashflow')->insert($insert3);

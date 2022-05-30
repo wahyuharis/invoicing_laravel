@@ -6,8 +6,6 @@
                     <label for="">Kode Purchase :</label>
                     <input type="text" id="kode_purchase" data-bind="value:kode_purchase" class="form-control" placeholder="Kode Purchase">
                 </div>
-
-
                 <div class="form-group">
                     <label for="">Supplier :</label>
                     <select id="id_supplier" class="form-control" data-bind="options: opt_supplier,
@@ -16,16 +14,12 @@
                        value: id_supplier,
                        optionsCaption: 'Pilih supplier..'"></select>
                 </div>
-
-
-
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Tanggal :</label>
                     <input type="text" id="tanggal" data-bind="value:tanggal" class="form-control" placeholder="Tanggal">
                 </div>
-
                 <div class="form-group">
                     <label for="">Barang Diterima :</label>
                     <select id="barang_diterima" class="form-control" data-bind="value:barang_diterima">
@@ -33,10 +27,12 @@
                         <option value="1">Barang Telah Diterima</option>
                     </select>
                 </div>
-
             </div>
             <div class="col-md-4">
-
+                <div class="form-group">
+                    <label for="">Catatan :</label>
+                    <textarea data-bind="value:catatan" class="form-control" name="catatan" id="catatan"></textarea>
+                </div>
             </div>
             <div class="col-md-12">
                 <textarea name="ko_output" class="form-control d-none" data-bind="value:ko.toJSON($root)"></textarea>
