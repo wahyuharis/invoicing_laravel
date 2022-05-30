@@ -16,9 +16,16 @@ class CustomerController extends Controller
         $searchTerm = $request->input('search');
 
         $customer = DB::table('customer')
-            ->where('deleted', 0)
             ->orderByDesc('id_customer')
-            ->where('nama_customer', 'LIKE', "%{$searchTerm}%")
+            ->whereRaw("
+            deleted=0 and
+            (
+                nama_customer like ?
+                or email like ?
+                or phone like ?
+                
+            )
+            ",["%{$searchTerm}%", "%{$searchTerm}%", "%{$searchTerm}%"] )
             ->paginate(5);
 
         $content_data = array();

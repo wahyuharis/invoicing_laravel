@@ -16,9 +16,16 @@ class SupplierController extends Controller
         $searchTerm = $request->input('search');
 
         $supplier = DB::table('supplier')
-            ->where('deleted', 0)
             ->orderByDesc('id_supplier')
-            ->where('nama_suplier', 'LIKE', "%{$searchTerm}%")
+            ->whereRaw("
+            deleted=0 and
+            (
+                nama_suplier like ?
+                or email like ?
+                or phone like ?
+                
+            )
+            ",["%{$searchTerm}%", "%{$searchTerm}%", "%{$searchTerm}%"] )
             ->paginate(5);
 
         $content_data = array();

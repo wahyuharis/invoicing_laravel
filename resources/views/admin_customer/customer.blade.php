@@ -1,13 +1,16 @@
 <div class="row">
     <div class="col-md-4">
         <a href="<?= url('admin/customer/add') ?>" class="btn btn-primary">Add</a>
+        <a href="<?= url('admin/customer/') ?>" class="btn btn-secondary">
+            <i class="fa-solid fa-arrows-rotate"></i>
+        </a>
     </div>
     <div class="col-md-4">
     </div>
     <div class="col-md-4">
         <form method="get" action="<?= url('admin/customer/') ?>">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" name="search" placeholder="Search">
+                <input type="text" class="form-control"  value="{{ Request::input('search') }}"  name="search" placeholder="Search">
                 <div class="input-group-append">
                     <button class="btn btn-dark" type="submit" id="button-addon2">
                         <i class="fa-solid fa-magnifying-glass"></i>

@@ -19,7 +19,12 @@ class ItemController extends Controller
         $master_item = DB::table('master_item')
             ->leftJoin('master_category', 'master_category.id_category', '=', 'master_item.id_category')
             ->orderByDesc('id_item')
-            ->whereRaw("master_item.deleted=0 and (nama_item like ? or kode_item like ? )", ["%{$searchTerm}%", "%{$searchTerm}%"])
+            ->whereRaw("master_item.deleted=0 
+            and (
+                nama_item like ? 
+                or kode_item like ?
+                or  master_category.nama_category like ?
+                )", ["%{$searchTerm}%", "%{$searchTerm}%", "%{$searchTerm}%"])
 
             ->paginate(5);
 
