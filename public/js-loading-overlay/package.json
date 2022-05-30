@@ -1,0 +1,81 @@
+{
+  "_args": [
+    [
+      "js-loading-overlay@1.2.0",
+      "/opt/lampp/htdocs/ci_template"
+    ]
+  ],
+  "_from": "js-loading-overlay@1.2.0",
+  "_id": "js-loading-overlay@1.2.0",
+  "_inBundle": false,
+  "_integrity": "sha512-1No+SmLxzclgGr1wvJbfp1cCnEF+GsWJUJHv8URu/9YJW/BnNdWrYFYIw/gKXDJWFr/ZdR+9gnbJbND+vn+z4Q==",
+  "_location": "/js-loading-overlay",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "js-loading-overlay@1.2.0",
+    "name": "js-loading-overlay",
+    "escapedName": "js-loading-overlay",
+    "rawSpec": "1.2.0",
+    "saveSpec": null,
+    "fetchSpec": "1.2.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/js-loading-overlay/-/js-loading-overlay-1.2.0.tgz",
+  "_spec": "1.2.0",
+  "_where": "/opt/lampp/htdocs/ci_template",
+  "author": {
+    "name": "Muhammad Faiz",
+    "email": "muhdfaizhalim@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/muhdfaiz/js-loading-overlay/issues"
+  },
+  "dependencies": {},
+  "description": "Easy and beautiful way to display loading overlay in your application.",
+  "devDependencies": {
+    "@babel/plugin-transform-async-to-generator": "^7.5.0",
+    "@babel/plugin-transform-classes": "^7.5.5",
+    "@babel/plugin-transform-modules-amd": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.6.0",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/runtime": "^7.6.3",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "^8.0.6",
+    "coveralls": "^3.1.0",
+    "jest": "^24.9.0",
+    "request": "^2.88.0",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.9",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "homepage": "https://github.com/muhdfaiz/js-loading-overlay#readme",
+  "keywords": [
+    "loading overlay",
+    "ajax loading",
+    "page loading overlay",
+    "overlay",
+    "loading",
+    "ajax"
+  ],
+  "license": "MIT",
+  "main": "dist/js-loading-overlay.min.js",
+  "name": "js-loading-overlay",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muhdfaiz/js-loading-overlay.git"
+  },
+  "scripts": {
+    "coverage": "coveralls < coverage/lcov.info",
+    "dev": "webpack --mode development --watch",
+    "prod": "webpack -p --mode production",
+    "test": "jest",
+    "test-coverage": "jest --coverage"
+  },
+  "version": "1.2.0"
+}
