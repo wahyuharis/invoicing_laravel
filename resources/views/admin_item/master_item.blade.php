@@ -26,6 +26,7 @@
         <table class="table table-striped">
             <thead>
                 <th>Action</th>
+                <th>Foto</th>
                 <th>Kode/Barcode</th>
                 <th>Nama Item</th>
                 <th>Kategori</th>
@@ -40,6 +41,9 @@
                             <a href="<?= url('admin/item/edit/' .  $row->id_item) ?>" class="btn btn-primary btn-sm">Edit</a>
 
                             <a href="<?= url('admin/item/delete/' .  $row->id_item) ?>" class="delete-btn btn btn-danger btn-sm">Delete</a>
+                        </td>
+                        <td>
+                            <img width="100px" height="100px" src="<?= url('upload/' . $row->foto1) ?>">
                         </td>
                         <td><?= $row->kode_item ?></td>
                         <td><?= $row->nama_item ?></td>

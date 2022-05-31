@@ -1,4 +1,8 @@
 <?php
+
+
+
+
 function print_r2($var)
 {
     echo "<pre>";

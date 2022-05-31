@@ -1,3 +1,9 @@
+<?php
+
+use App\Models\AdminPurchaseModel;
+
+$purchase_model = new AdminPurchaseModel();
+?>
 <div class="row">
     <div class="col-md-4">
         <a href="<?= url('admin/purchase/add') ?>" class="btn btn-primary">Add</a>
@@ -28,6 +34,7 @@
                 <th>Sub</th>
                 <th>Pajak</th>
                 <th>Total</th>
+                <th>Sisa Tagihan</th>
                 <th>Barang Diterima</th>
             </thead>
             <tbody>
@@ -43,6 +50,12 @@
                         <td><?= number_format($row->sub, 2) ?></td>
                         <td><?= $row->pajak ?></td>
                         <td><?= number_format($row->total, 2) ?></td>
+                        <td>
+                            <?php
+                            $sisa_tagihan = $purchase_model->get_sisa_tagihan($row->id_purchase)[0]->sisa_tagihan;
+                            echo  number_format($sisa_tagihan, 2);
+                            ?>
+                        </td>
                         <td>
                             <?php
                             if ($row->barang_diterima > 0) { ?>

@@ -55,6 +55,7 @@ class ItemController extends Controller
         $form->satuan_item = '';
         $form->harga_beli = '';
         $form->harga_jual = '';
+        $form->foto1 = '';
 
         $db = DB::table('master_item')->where('id_item', $id)
             ->first();
@@ -67,9 +68,6 @@ class ItemController extends Controller
             $opt_category[$row->id_category] = $row->nama_category;
         }
 
-
-        // dd($opt_category);
-
         if ($db) {
             $form->id = $id;
             $form->nama_item =  $db->nama_item;
@@ -78,6 +76,7 @@ class ItemController extends Controller
             $form->satuan_item =  $db->satuan_item;
             $form->harga_beli = $db->harga_beli;
             $form->harga_jual =  $db->harga_jual;
+            $form->foto1 = $db->foto1;
         }
 
         $content_data = array();
@@ -131,10 +130,17 @@ class ItemController extends Controller
             }
         }
 
-        $file1 = $request->file('foto1');
 
+        $file1 = $request->file('file1');
+        $newname = "";
+        if ($file1) {
+            $newname = "img-" . uniqid() . "." . $file1->getClientOriginalExtension();
+            $file1->move('upload/', $newname);
+        }
 
         if ($success) {
+
+
             $id = trim($request->input('id'));
             if (empty(trim($id))) {
 
@@ -144,6 +150,9 @@ class ItemController extends Controller
                     $insert['kode_item'] = $request->input('kode_item');
                 }
 
+
+
+                $insert['foto1'] = $newname;
                 $insert['nama_item'] = $request->input('nama_item');
                 $insert['id_category'] = $request->input('id_category');
                 $insert['satuan_item'] = $request->input('satuan_item');
@@ -161,6 +170,8 @@ class ItemController extends Controller
                 } else {
                     $insert['kode_item'] = $request->input('kode_item');
                 }
+
+                $insert['foto1'] = $newname;
                 $insert['nama_item'] = $request->input('nama_item');
                 $insert['id_category'] = $request->input('id_category');
                 $insert['satuan_item'] = $request->input('satuan_item');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminPurchaseModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use stdClass;
@@ -24,7 +25,15 @@ class PurchaseController extends Controller
                 "purchase.deleted=0 and (kode_purchase like ? or tanggal like ? )",
                 ["%{$searchTerm}%", "%{$searchTerm}%"]
             )
+            ->leftJoin('supplier', 'supplier.id_supplier', '=', 'purchase.id_supplier')
             ->paginate(5);
+
+        // 
+
+        // $model = new AdminPurchaseModel();
+        // $result =  $model->get_sisa_tagihan(1);
+
+        // dd($result);
 
         $content_data = array();
         $content_data['purchase'] = $purchase;
@@ -129,6 +138,7 @@ class PurchaseController extends Controller
             $insert['sub'] = floatval2($ko_array['sub']);
             $insert['total'] = floatval2($ko_array['total']);
             $insert['barang_diterima'] = floatval2($ko_array['barang_diterima']);
+            $insert['catatan'] = trim($ko_array['catatan']);
 
             $db0 = DB::table('purchase')->insert($insert);
             $insert_id = DB::getPdo()->lastInsertId();
@@ -175,7 +185,7 @@ class PurchaseController extends Controller
                     $insert4['qty_in'] = floatval2($row['qty']);
                     $insert4['qty_akhir'] = $qty_akhir;
 
-                    $db4=DB::table('stock')->insert($insert4);
+                    $db4 = DB::table('stock')->insert($insert4);
                 }
             }
 
