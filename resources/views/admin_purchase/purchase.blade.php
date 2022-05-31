@@ -52,8 +52,12 @@ $purchase_model = new AdminPurchaseModel();
                         <td><?= number_format($row->total, 2) ?></td>
                         <td>
                             <?php
-                            $sisa_tagihan = $purchase_model->get_sisa_tagihan($row->id_purchase)[0]->sisa_tagihan;
-                            echo  number_format($sisa_tagihan, 2);
+                            $sisa_tagihan = $purchase_model->get_sisa_tagihan($row->id_purchase);
+                            if (count($sisa_tagihan) > 1) {
+                                echo  number_format($sisa_tagihan[0]->sisa_tagihan, 2);
+                            }else{
+                                echo "Belum Dibayar";
+                            }
                             ?>
                         </td>
                         <td>

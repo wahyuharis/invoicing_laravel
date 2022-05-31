@@ -28,13 +28,6 @@ class PurchaseController extends Controller
             ->leftJoin('supplier', 'supplier.id_supplier', '=', 'purchase.id_supplier')
             ->paginate(5);
 
-        // 
-
-        // $model = new AdminPurchaseModel();
-        // $result =  $model->get_sisa_tagihan(1);
-
-        // dd($result);
-
         $content_data = array();
         $content_data['purchase'] = $purchase;
         $content = view("admin_purchase.purchase", $content_data);
@@ -176,8 +169,13 @@ class PurchaseController extends Controller
                         ->first();
 
                     $qty_akhir = 0;
-                    if ($db3) {
-                        $qty_akhir = $db3->qty_akhir +  floatval2($row4['qty']);;
+                    if (is_object($db3)) {
+                        $qty_akhir = floatval2($db3->qty_akhir) +  floatval2($row4['qty']);
+                        // TEKAN KENE
+                        // echo "<pre>";
+                        // print_r($qty_akhir);
+                        // echo "<hr>";
+                        // print_r(floatval2($db3->qty_akhir));
                     }
 
 
@@ -200,5 +198,53 @@ class PurchaseController extends Controller
             'message' => $message
         );
         return response()->json($res);
+    }
+
+    function edit()
+    {
+    }
+    function delete($id = '')
+    {
+        DB::beginTransaction();
+        $purchase = DB::table('purchase')->where('id_purchase', '=', $id)->get()->first();
+        $purchase_list = DB::table('purchase_detail')->where('id_purchase', '=', $id)->get()->toArray();
+
+        // dd($purchase);
+
+        if ($purchase->barang_diterima > 0) {
+            foreach ($purchase_list as $row) {
+
+                $db3 = DB::table('stock')
+                    ->where('id_item', $row->id_item)
+                    ->orderByDesc('id_stock')
+                    ->first();
+
+                $qty_akhir = 0;
+                if ($db3) {
+                    $qty_akhir = $db3->qty_akhir - floatval2($row->qty);;
+                }
+
+
+                $insert4['id_item'] = $row->id_item;
+                $insert4['qty_out'] = floatval2($row->qty);
+                $insert4['qty_akhir'] = $qty_akhir;
+                $insert4['keterangan'] = "Batal Transaksi";
+
+                $db4 = DB::table('stock')->insert($insert4);
+            }
+        }
+
+
+        $purchase = DB::table('purchase')->where(['id_purchase' => $id])->delete();
+        $cashflow = DB::table('cashflow')
+            ->where([
+                'id_tabel' => $id,
+                'tabel' => 'purchase',
+            ])->delete();
+        DB::commit();
+
+        $prev = url()->previous();
+
+        return redirect($prev);
     }
 }
