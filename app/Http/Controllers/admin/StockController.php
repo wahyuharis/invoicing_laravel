@@ -52,6 +52,14 @@ class StockController extends Controller
     {
         $item_stock_detail = array();
 
+        $item_stock_detail = DB::table('stock')
+            ->join('master_item', 'master_item.id_item', '=', 'stock.id_item')
+            ->where('stock.id_item', $id_item)
+            ->paginate(5);
+
+
+        // dd($item_stock_detail->toArray());
+
         $content_data['item_stock_detail'] = $item_stock_detail;
 
         $layout_data = array();
