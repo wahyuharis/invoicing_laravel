@@ -22,6 +22,7 @@
     <div class="col-md-12">
         <table class="table table-striped">
             <thead>
+                <th>Detail</th>
                 <th>Kode Item</th>
                 <th>Nama Item</th>
                 <th>Kategory</th>

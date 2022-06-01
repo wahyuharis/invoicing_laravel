@@ -35,7 +35,7 @@ class StockController extends Controller
                 master_item.`nama_item` like ? or
                 master_category.nama_category like ?
             )
-            ",["%{$searchTerm}%","%{$searchTerm}%","%{$searchTerm}%"])
+            ", ["%{$searchTerm}%", "%{$searchTerm}%", "%{$searchTerm}%"])
             ->orderByDesc('id_item')
             ->paginate(5);
 
@@ -44,6 +44,19 @@ class StockController extends Controller
         $layout_data = array();
         $layout_data['page_title'] = "Stock";
         $layout_data['content'] = view('admin_stock.stock', $content_data);
+        $layout_data['breadcrumb'] = view('admin_stock.breadcrumb');
+
+        return view('admin.layout', $layout_data);
+    }
+    function stock_detail($id_item)
+    {
+        $item_stock_detail = array();
+
+        $content_data['item_stock_detail'] = $item_stock_detail;
+
+        $layout_data = array();
+        $layout_data['page_title'] = "Stock Detail";
+        $layout_data['content'] = view('admin_stock.stock_detail', $content_data);
         $layout_data['breadcrumb'] = view('admin_stock.breadcrumb');
 
         return view('admin.layout', $layout_data);

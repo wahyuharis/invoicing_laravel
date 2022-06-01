@@ -72,6 +72,7 @@ Route::middleware([UdahLogin::class])->group(function () {
 
 
     Route::get('/admin/stock/', [StockController::class, 'index']);
+    Route::get('/admin/stock/detail/{id}', [StockController::class, 'stock_detail']);
 
     Route::get('/admin/purchase/', [PurchaseController::class, 'index']);
     Route::get('/admin/purchase/add/', [PurchaseController::class, 'add']);
