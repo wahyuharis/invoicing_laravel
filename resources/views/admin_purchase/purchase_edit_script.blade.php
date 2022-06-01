@@ -2,6 +2,23 @@
     $(document).ready(function() {
         format();
 
+        $('#jml_dibayar').change(function() {
+            var sisa_tagihan = $("#sisa_tagihan").html();
+            sisa_tagihan = curency_to_float(sisa_tagihan);
+            jml_dibayar = curency_to_float($(this).val());
+
+            if (jml_dibayar > sisa_tagihan) {
+                // toastr.error("Maaf Nilai Setoran/Cicilan Tidak Boleh lebih Dari Sisa Tagihan");
+
+                bootbox.alert({
+                    message: "Maaf Nilai Setoran/Cicilan Tidak Boleh lebih Dari Sisa Tagihan!",
+                    size: 'small'
+                });
+
+                $(this).val('0');
+            }
+        });
+
         $('#form_1').submit(function(e) {
             e.preventDefault();
             JsLoadingOverlay.show();

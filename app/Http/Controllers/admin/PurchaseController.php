@@ -278,7 +278,14 @@ class PurchaseController extends Controller
         $jml_dibayar = $request->input('jml_dibayar');
 
         DB::beginTransaction();
-        if (intval($barang_diterima) > 0) {
+
+        $db0 = DB::table('purchase')->where('id_purchase', $id)->first();
+
+        // if( intval($db0->barang_diterima) ){
+
+        // }
+
+        if (intval($barang_diterima) > 0 && intval($db0->barang_diterima) < 1  ) {
             $db = DB::table('purchase_detail')->where('id_purchase', $id)->get()->toArray();
             foreach ($db as $row) {
 

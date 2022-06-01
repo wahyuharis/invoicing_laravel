@@ -117,7 +117,7 @@
             <tr>
                 <th> Sisa Tagihan </th>
                 <th> : </th>
-                <th>
+                <th id="sisa_tagihan">
                     <?= number_format($sisa_tagihan, 2) ?>
                 </th>
             </tr>
