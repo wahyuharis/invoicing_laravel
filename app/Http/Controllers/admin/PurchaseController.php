@@ -27,7 +27,7 @@ class PurchaseController extends Controller
                 (kode_purchase like ? 
                 or tanggal like ? 
                 or `supplier`.`nama_suplier` like ? )",
-                ["%{$searchTerm}%", "%{$searchTerm}%","%{$searchTerm}%"]
+                ["%{$searchTerm}%", "%{$searchTerm}%", "%{$searchTerm}%"]
             )
             ->paginate(5);
 
@@ -277,6 +277,7 @@ class PurchaseController extends Controller
         $barang_diterima = $request->input('barang_diterima');
         $jml_dibayar = $request->input('jml_dibayar');
 
+        DB::beginTransaction();
         if (intval($barang_diterima) > 0) {
             $db = DB::table('purchase_detail')->where('id_purchase', $id)->get()->toArray();
             foreach ($db as $row) {
@@ -307,6 +308,8 @@ class PurchaseController extends Controller
 
                 $db4 = DB::table('stock')->insert($insert4);
             }
+
+            $db5 = DB::table('purchase')->where('id_purchase', $id)->update(['barang_diterima' => 1]);
         }
 
         $insert3 = array();
@@ -319,7 +322,7 @@ class PurchaseController extends Controller
 
             $db2 = DB::table('cashflow')->insert($insert3);
         }
-
+        DB::commit();
 
         $res = array(
             'data' => $data,

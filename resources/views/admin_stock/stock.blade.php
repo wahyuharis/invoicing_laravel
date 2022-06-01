@@ -30,10 +30,14 @@
             </thead>
             <tbody>
                 <?php foreach ($item_stock as $row) { ?>
+                    <tr>
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="<?= url('admin/stock/detail/' . $row->id_item) ?>">Detail</a>
+                        </td>
                         <td><?= $row->kode_item ?></td>
                         <td><?= $row->nama_item ?></td>
-                        <td><?=$row->nama_category?></td>
-                        <td><?=$row->qty?></td>
+                        <td><?= $row->nama_category ?></td>
+                        <td><?= $row->qty ?></td>
                     </tr>
                 <?php } ?>
             </tbody>

@@ -151,8 +151,14 @@
                 <tr>
                     <th> Setor Cicilan (+Dibayarkan) </th>
                     <th> : </th>
+                    <?php
+                    $readonly = "";
+                    if ($sisa_tagihan < 1) {
+                        $readonly = " readonly ";
+                    }
+                    ?>
                     <th>
-                        <input type="text" id="jml_dibayar" name="jml_dibayar" class="form-control thousand" placeholder="Jml Dibayarkan">
+                        <input type="text" id="jml_dibayar" <?= $readonly ?> name="jml_dibayar" class="form-control thousand" placeholder="Jml Dibayarkan">
 
                     </th>
                 </tr>

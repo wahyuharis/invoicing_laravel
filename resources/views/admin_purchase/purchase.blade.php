@@ -7,13 +7,17 @@ $purchase_model = new AdminPurchaseModel();
 <div class="row">
     <div class="col-md-4">
         <a href="<?= url('admin/purchase/add') ?>" class="btn btn-primary">Add</a>
+
+        <a href="<?= url('admin/purchase/') ?>" class="btn btn-secondary">
+            <i class="fa-solid fa-arrows-rotate"></i>
+        </a>
     </div>
     <div class="col-md-4">
     </div>
     <div class="col-md-4">
         <form method="get" action="<?= url('admin/purchase/') ?>">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" name="search" placeholder="Search">
+                <input type="text" class="form-control" name="search" value="{{ Request::input('search') }}" placeholder="Search">
                 <div class="input-group-append">
                     <button class="btn btn-dark" type="submit" id="button-addon2">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -58,7 +62,11 @@ $purchase_model = new AdminPurchaseModel();
 
                             if (count($sisa_tagihan) < 1) {
                                 echo '<span class="badge badge-secondary">Belum Dibayar</span>';
-                            } else {
+                            } 
+                            elseif($sisa_tagihan[0]->sisa_tagihan < 1){
+                                echo '<span class="badge badge-primary">Lunas</span>';
+                            }
+                            else {
                                 echo number_format($sisa_tagihan[0]->sisa_tagihan, 2);
                             }
                             ?>
