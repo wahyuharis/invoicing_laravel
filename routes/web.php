@@ -77,6 +77,9 @@ Route::middleware([UdahLogin::class])->group(function () {
     Route::get('/admin/purchase/add/', [PurchaseController::class, 'add']);
     Route::post('/admin/purchase/submit/', [PurchaseController::class, 'submit']);
     Route::get('/admin/purchase/delete/{id}', [PurchaseController::class, 'delete']);
+    Route::get('/admin/purchase/edit/{id}', [PurchaseController::class, 'edit']);
+    Route::post('/admin/purchase/edit_submit/', [PurchaseController::class, 'edit_submit']);
+
 
     Route::get('/admin/cashflow/', [CashflowController::class, 'index']);
 

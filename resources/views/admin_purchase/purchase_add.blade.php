@@ -103,7 +103,7 @@
                         <th>Dibayarkan</th>
                         <th>:</th>
                         <th>
-                            <input type="text" id="kode_purchase" data-bind="value:jml_dibayar" class="form-control thousand" placeholder="Jml Dibayarkan">
+                            <input type="text" id="jml_dibayar" data-bind="value:jml_dibayar" class="form-control thousand" placeholder="Jml Dibayarkan">
                         </th>
                     </tr>
                     <tr>

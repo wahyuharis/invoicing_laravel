@@ -36,9 +36,6 @@ class StockController extends Controller
                 master_category.nama_category like ?
             )
             ",["%{$searchTerm}%","%{$searchTerm}%","%{$searchTerm}%"])
-
-            
-
             ->orderByDesc('id_item')
             ->paginate(5);
 
