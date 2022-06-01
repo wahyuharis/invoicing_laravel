@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminHomeController;
+use App\Http\Controllers\admin\CashflowController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ItemController;
@@ -72,10 +73,12 @@ Route::middleware([UdahLogin::class])->group(function () {
 
     Route::get('/admin/stock/', [StockController::class, 'index']);
 
-
     Route::get('/admin/purchase/', [PurchaseController::class, 'index']);
     Route::get('/admin/purchase/add/', [PurchaseController::class, 'add']);
     Route::post('/admin/purchase/submit/', [PurchaseController::class, 'submit']);
     Route::get('/admin/purchase/delete/{id}', [PurchaseController::class, 'delete']);
+
+    Route::get('/admin/cashflow/', [CashflowController::class, 'index']);
+
 
 });

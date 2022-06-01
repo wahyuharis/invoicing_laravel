@@ -30,6 +30,7 @@ $purchase_model = new AdminPurchaseModel();
             <thead>
                 <th>Action</th>
                 <th>Kode Purchase</th>
+                <th>Supplier</th>
                 <th>Tanggal</th>
                 <th>Sub</th>
                 <th>Pajak</th>
@@ -46,6 +47,7 @@ $purchase_model = new AdminPurchaseModel();
                             <a href="<?= url('admin/purchase/delete/' .  $row->id_purchase) ?>" class="delete-btn btn btn-danger btn-sm">Delete</a>
                         </td>
                         <td><?= $row->kode_purchase ?></td>
+                        <td><?= $row->nama_suplier ?></td>
                         <td><?= $row->tanggal ?></td>
                         <td><?= number_format($row->sub, 2) ?></td>
                         <td><?= $row->pajak ?></td>
@@ -53,12 +55,14 @@ $purchase_model = new AdminPurchaseModel();
                         <td>
                             <?php
                             $sisa_tagihan = $purchase_model->get_sisa_tagihan($row->id_purchase);
-                            if (count($sisa_tagihan) > 1) {
-                                echo  number_format($sisa_tagihan[0]->sisa_tagihan, 2);
-                            }else{
-                                echo "Belum Dibayar";
+
+                            if (count($sisa_tagihan) < 1) {
+                                echo '<span class="badge badge-secondary">Belum Dibayar</span>';
+                            } else {
+                                echo number_format($sisa_tagihan[0]->sisa_tagihan, 2);
                             }
                             ?>
+
                         </td>
                         <td>
                             <?php

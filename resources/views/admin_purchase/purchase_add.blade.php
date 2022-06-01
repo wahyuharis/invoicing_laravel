@@ -110,7 +110,7 @@
                         <th>Sisa Tagihan</th>
                         <th>:</th>
                         <th>
-                            <b data-bind="value:sisa_tagihan"></b>
+                            <b data-bind="text:sisa_tagihan"></b>
                         </th>
                     </tr>
                 </table>

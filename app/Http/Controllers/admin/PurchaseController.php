@@ -166,22 +166,28 @@ class PurchaseController extends Controller
                     $db3 = DB::table('stock')
                         ->where('id_item', $row4['id_item'])
                         ->orderByDesc('id_stock')
-                        ->first();
+                        ->limit(1)
+                        ->get();
 
                     $qty_akhir = 0;
-                    if (is_object($db3)) {
-                        $qty_akhir = floatval2($db3->qty_akhir) +  floatval2($row4['qty']);
-                        // TEKAN KENE
-                        // echo "<pre>";
-                        // print_r($qty_akhir);
-                        // echo "<hr>";
-                        // print_r(floatval2($db3->qty_akhir));
+                    $qty_awal = 0;
+                    if (count($db3) > 0) {
+                        $db3arr = $db3->toArray();
+
+                        $qty_awal = $db3arr[0]->qty_akhir;
+
+                        $qty_akhir = $qty_awal + floatval2($row4['qty']);
+                    } else {
+                        $qty_akhir = $qty_akhir + floatval2($row4['qty']);
                     }
 
 
                     $insert4['id_item'] = $row4['id_item'];
-                    $insert4['qty_in'] = floatval2($row['qty']);
+                    $insert4['qty_awal'] = floatval2($qty_awal);
+                    $insert4['qty_in'] = floatval2($row4['qty']);
                     $insert4['qty_akhir'] = $qty_akhir;
+
+                    // dd($insert4);
 
                     $db4 = DB::table('stock')->insert($insert4);
                 }
@@ -220,12 +226,15 @@ class PurchaseController extends Controller
                     ->first();
 
                 $qty_akhir = 0;
+                $qty_awal = 0;
                 if ($db3) {
+                    $qty_awal = $db3->qty_akhir;
                     $qty_akhir = $db3->qty_akhir - floatval2($row->qty);;
                 }
 
 
                 $insert4['id_item'] = $row->id_item;
+                $insert4['qty_awal'] = $qty_awal;
                 $insert4['qty_out'] = floatval2($row->qty);
                 $insert4['qty_akhir'] = $qty_akhir;
                 $insert4['keterangan'] = "Batal Transaksi";
