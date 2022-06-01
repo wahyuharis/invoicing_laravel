@@ -73,9 +73,20 @@
                             <a class="dropdown-item" href="<?= url('admin/customer') ?>">Customer</a>
                         </div>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="<?= url('admin/purchase/') ?>">Purchase</a>
+                    </li> -->
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                            Purchase
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="<?= url('admin/purchase/') ?>">Purchase</a>
+                            <a class="dropdown-item" href="<?= url('admin/retur') ?>">Retur</a>
+                        </div>
                     </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="#">Sales</a>
                     </li>
