@@ -16,15 +16,19 @@ class CustomerController extends Controller
         $searchTerm = $request->input('search');
 
         $customer = DB::table('customer')
+            ->selectRaw("customer.*,concat(_lok_regencies.name,' - ',_lok_provinces.name) as kota")
             ->orderByDesc('id_customer')
+            ->leftJoin('_lok_regencies', '_lok_regencies.id', '=', 'customer.id_kota')
+            ->leftJoin('_lok_provinces', '_lok_provinces.id', '=', '_lok_regencies.province_id')
             ->whereRaw("
             deleted=0 and
             (
                 nama_customer like ?
                 or email like ?
                 or phone like ?
+                or concat(_lok_regencies.name,' - ',_lok_provinces.name) like ?
             )
-            ",["%{$searchTerm}%", "%{$searchTerm}%", "%{$searchTerm}%"] )
+            ", ["%{$searchTerm}%", "%{$searchTerm}%", "%{$searchTerm}%","%{$searchTerm}%"])
             ->paginate(5);
 
         $content_data = array();
@@ -165,5 +169,4 @@ class CustomerController extends Controller
 
         return redirect($prev);
     }
-
 }

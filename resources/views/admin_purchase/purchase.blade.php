@@ -47,7 +47,7 @@ $purchase_model = new AdminPurchaseModel();
                     <tr>
                         <td>
                             <a href="<?= url('admin/purchase/edit/' .  $row->id_purchase) ?>" class="btn btn-primary btn-sm">Edit</a>
-
+                            <a href="<?= url('admin/purchase/view/' .  $row->id_purchase) ?>" class="btn btn-info btn-sm">Print</a>
                             <a href="<?= url('admin/purchase/delete/' .  $row->id_purchase) ?>" class="delete-btn btn btn-danger btn-sm">Delete</a>
                         </td>
                         <td><?= $row->kode_purchase ?></td>

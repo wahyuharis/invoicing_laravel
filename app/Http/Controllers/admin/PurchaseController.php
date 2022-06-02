@@ -285,7 +285,7 @@ class PurchaseController extends Controller
 
         // }
 
-        if (intval($barang_diterima) > 0 && intval($db0->barang_diterima) < 1  ) {
+        if (intval($barang_diterima) > 0 && intval($db0->barang_diterima) < 1) {
             $db = DB::table('purchase_detail')->where('id_purchase', $id)->get()->toArray();
             foreach ($db as $row) {
 
@@ -337,6 +337,61 @@ class PurchaseController extends Controller
             'message' => $message
         );
         return response()->json($res);
+    }
+
+    function view($id)
+    {
+        $form = new stdClass();
+
+        $content_data = array();
+
+        $purchase = DB::table('purchase')
+            ->leftJoin('supplier', 'supplier.id_supplier', '=', 'purchase.id_supplier')
+            ->where('id_purchase', $id)
+            ->first();
+
+        $purchase_list = DB::table('purchase_detail')
+            ->leftJoin('master_item', 'master_item.id_item', '=', 'purchase_detail.id_item')
+            ->where('id_purchase', $id)
+            ->get();
+
+        $cashflow = DB::table('cashflow')
+            ->where('tabel', 'purchase')
+            ->where('id_tabel', $id)
+            ->first();
+
+        $cashflow2 = new stdClass();
+        $cashflow2->total = "0";
+        if ($cashflow) {
+            $cashflow2->total = $cashflow->total;
+        }
+
+
+        $purchase_model = new AdminPurchaseModel();
+
+        // dd($purchase_model->get_sisa_tagihan($id));
+        // dd($purchase);
+
+        $sisa_tagihan = $purchase->total;
+        if (count($purchase_model->get_sisa_tagihan($id)) > 0) {
+            $sisa_tagihan = $purchase_model->get_sisa_tagihan($id)[0]->sisa_tagihan;
+        }
+
+        $content_data['purchase'] = $purchase;
+        $content_data['purchase_list'] = $purchase_list;
+        $content_data['cashflow'] = $cashflow2;
+        $content_data['sisa_tagihan'] = $sisa_tagihan;
+        $content_data['id'] = $id;
+
+        $content = view("admin_purchase.purchase_view", $content_data);
+        $breadcrumb = view('admin_purchase.breadcrumb');
+
+        $layout_data = array();
+        $layout_data['page_title'] = "Purchase";
+        $layout_data['content'] = $content;
+        $layout_data['breadcrumb'] = $breadcrumb;
+
+        return view('admin.layout', $layout_data);
     }
 
     function delete($id = '')

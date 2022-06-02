@@ -29,6 +29,7 @@
                 <th>Nama Supplier</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Kota</th>
             </thead>
             <tbody>
                 <?php foreach ($supplier as $row) { ?>
@@ -41,6 +42,7 @@
                         <td><?= $row->nama_suplier ?></td>
                         <td><?= $row->email ?></td>
                         <td><?= $row->phone ?></td>
+                        <td><?= $row->kota ?></td>
                     </tr>
                 <?php } ?>
             </tbody>
