@@ -10,14 +10,12 @@ use Illuminate\Support\Facades\DB;
 class AdminCashflowModel extends Model
 {
     use HasFactory;
-    protected $table = 'purchase';
-    protected $primaryKey = 'id_purchase';
+    protected $table = 'cashflow';
+    protected $primaryKey = 'id_cashflow';
 
     function get_list()
     {
-        $sql = "SELECT 
-
-        cashflow.id_cashflow,
+        $selectRaw="cashflow.id_cashflow,
         cashflow.keperluan,
         cashflow.tabel,
         cashflow.id_tabel,
@@ -31,12 +29,13 @@ class AdminCashflowModel extends Model
             )
          else 'kondisi lain'
          END
-        ) as kode_trans
-        
-        
-        FROM `cashflow` WHERE 1;
-        ";
+        ) as kode_trans";
 
-        DB::select($sql, []);
+        $db=DB::table('cashflow')
+        ->selectRaw($selectRaw)
+        ->paginate(5);
+
+        return $db;
+
     }
 }

@@ -28,9 +28,17 @@
                 <th>Total</th>
             </thead>
             <tbody>
-               
+                <?php foreach ($cashflow as $row) { ?>
+                    <tr>
+                        <td> <?=$row->id_cashflow?> </td>
+                        <td> <?=$row->keperluan?> </td>
+                        <td> <?=$row->kode_trans?> </td>
+                        <td> <?=$row->total?> </td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
+        {{ $cashflow->appends(request()->input())->links(); }}
 
     </div>
 </div>

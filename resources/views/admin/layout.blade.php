@@ -94,7 +94,7 @@
                         <a class="nav-link" href="<?=url('admin/stock')?>">Stock</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Cashflow</a>
+                        <a class="nav-link" href="<?=url('admin/cashflow')?>">Cashflow</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Report</a>
