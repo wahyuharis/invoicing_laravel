@@ -64,7 +64,7 @@
                         </td>
                         <td> <span data-bind="text:kode_item"></span> </td>
                         <td> <span data-bind="text:nama_item"></span> </td>
-                        <td> <input data-bind="value:harga_beli" type="text" class="form-control form-control-sm thousand"> </td>
+                        <td> <input data-bind="value:harga_jual" type="text" class="form-control form-control-sm thousand"> </td>
                         <td> <input data-bind="value:qty" type="text" class="form-control form-control-sm number"> </td>
                         <td> <span data-bind="text:satuan_item"></span> </td>
                         <td> <input data-bind="value:disc" type="text" class="form-control form-control-sm number"></td>

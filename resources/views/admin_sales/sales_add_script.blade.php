@@ -1,17 +1,17 @@
 <script>
-    function add_item(id_item, kode_item, nama_item, harga_beli, qty, satuan_item, disc) {
+    function add_item(id_item, kode_item, nama_item, harga_jual, qty, satuan_item, disc) {
         var self = this;
 
         self.id_item = ko.observable(id_item);
         self.kode_item = ko.observable(kode_item);
         self.nama_item = ko.observable(nama_item);
-        self.harga_beli = ko.observable(harga_beli);
+        self.harga_jual = ko.observable(harga_jual);
         self.qty = ko.observable(qty);
         self.satuan_item = ko.observable(satuan_item);
         self.disc = ko.observable(disc);
         self.sub1 = ko.computed(function() {
             total = 0;
-            total = curency_to_float(self.qty()) * curency_to_float(self.harga_beli());
+            total = curency_to_float(self.qty()) * curency_to_float(self.harga_jual());
             total = float_to_currency(total);
             return total;
         });
@@ -103,7 +103,7 @@
                     type: 'get',
                     success: function(data) {
                         console.log(data);
-                        self.item_list.push(new add_item(data.id_item, data.kode_item, data.nama_item, data.harga_beli, '0', data.satuan_item, '0'));
+                        self.item_list.push(new add_item(data.id_item, data.kode_item, data.nama_item, data.harga_jual, '0', data.satuan_item, '0'));
                         $('#pick_item_modal').modal('hide');
                         JsLoadingOverlay.hide();
 

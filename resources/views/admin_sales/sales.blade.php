@@ -75,9 +75,9 @@
                         <td>
                             <?php
                             if ($row->barang_dikirim > 0) { ?>
-                                <span class="badge badge-primary">Diterima</span>
+                                <span class="badge badge-primary">Telah Dikirim</span>
                             <?php } else { ?>
-                                <span class="badge badge-secondary">Belum Diterima</span>
+                                <span class="badge badge-secondary">Belum Dikirim</span>
                             <?php }  ?>
                         </td>
                     </tr>
