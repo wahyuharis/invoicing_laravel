@@ -1,8 +1,7 @@
 <?php
+use App\Models\AdminSalesModel;
 
-// use App\Models\AdminPurchaseModel;
-
-// $purchase_model = new AdminPurchaseModel();
+$sales_model=new AdminSalesModel();
 ?>
 <div class="row">
     <div class="col-md-4">
@@ -58,17 +57,17 @@
                         <td><?= number_format($row->total, 2) ?></td>
                         <td>
                             <?php
-                            // $sisa_tagihan = $purchase_model->get_sisa_tagihan($row->id_sales);
+                            $sisa_tagihan = $sales_model->get_sisa_tagihan($row->id_sales);
 
-                            // if (count($sisa_tagihan) < 1) {
-                            //     echo '<span class="badge badge-secondary">Belum Dibayar</span>';
-                            // } 
-                            // elseif($sisa_tagihan[0]->sisa_tagihan < 1){
-                            //     echo '<span class="badge badge-primary">Lunas</span>';
-                            // }
-                            // else {
-                            //     echo number_format($sisa_tagihan[0]->sisa_tagihan, 2);
-                            // }
+                            if (count($sisa_tagihan) < 1) {
+                                echo '<span class="badge badge-secondary">Belum Dibayar</span>';
+                            } 
+                            elseif($sisa_tagihan[0]->sisa_tagihan < 1){
+                                echo '<span class="badge badge-primary">Lunas</span>';
+                            }
+                            else {
+                                echo number_format($sisa_tagihan[0]->sisa_tagihan, 2);
+                            }
                             // ?>
 
                         </td>
