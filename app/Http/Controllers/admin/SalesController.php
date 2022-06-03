@@ -257,7 +257,7 @@ class SalesController extends Controller
         $message = "";
 
 
-        // dd($_POST);
+        // dd($request->all());
 
         $id = $request->input('id');
         $barang_dikirim = $request->input('barang_dikirim');
