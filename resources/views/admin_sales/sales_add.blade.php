@@ -3,16 +3,16 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="">Kode Purchase :</label>
-                    <input type="text" id="kode_purchase" data-bind="value:kode_purchase" class="form-control" placeholder="Kode Purchase">
+                    <label for="">Kode Sales :</label>
+                    <input type="text" id="kode_purchase" data-bind="value:kode_sales" class="form-control" placeholder="Kode Sales">
                 </div>
                 <div class="form-group">
-                    <label for="">Supplier :</label>
-                    <select id="id_supplier" class="form-control" data-bind="options: opt_supplier,
-                       optionsText: 'nama_suplier',
-                       optionsValue: 'id_supplier',
-                       value: id_supplier,
-                       optionsCaption: 'Pilih supplier..'"></select>
+                    <label for="">Customer :</label>
+                    <select id="id_customer" class="form-control" data-bind="options: opt_customer,
+                       optionsText: 'nama_customer',
+                       optionsValue: 'id_customer',
+                       value: id_customer,
+                       optionsCaption: 'Pilih customer..'"></select>
                 </div>
             </div>
             <div class="col-md-4">
@@ -21,10 +21,10 @@
                     <input type="text" id="tanggal" data-bind="value:tanggal" class="form-control" placeholder="Tanggal">
                 </div>
                 <div class="form-group">
-                    <label for="">Barang Diterima :</label>
-                    <select id="barang_diterima" class="form-control" data-bind="value:barang_diterima">
-                        <option value="0">Barang Belum Diterima</option>
-                        <option value="1">Barang Telah Diterima</option>
+                    <label for="">Barang Dikirm :</label>
+                    <select id="barang_dikirim" class="form-control" data-bind="value:barang_dikirim">
+                        <option value="0">Barang Belum Dikirim</option>
+                        <option value="1">Barang Telah Dikirim</option>
                     </select>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <textarea name="ko_output" class="form-control d-none" data-bind="value:ko.toJSON($root)"></textarea>
+                <textarea name="ko_output" class="form-control" data-bind="value:ko.toJSON($root)"></textarea>
             </div>
         </div>
 
@@ -122,7 +122,7 @@
             <div class="col-md-12" style="">
                 <br><br>
                 <button type="submit" class="btn btn-primary">Save</button>
-                <a class="btn btn-secondary" href="<?= url('admin/purchase') ?>">Kembali</a>
+                <a class="btn btn-secondary" href="<?= url('admin/sales') ?>">Kembali</a>
             </div>
         </div>
 
@@ -167,4 +167,4 @@
         </div>
     </form>
 </div>
-@include('admin_purchase.purchase_add_script')
+@include('admin_sales.sales_add_script')

@@ -39,4 +39,34 @@ class SalesController extends Controller
 
         return view('admin.layout', $layout_data);
     }
+
+    function add()
+    {
+
+        $form = new stdClass();
+
+        $content_data = array();
+        $content_data['form'] = $form;
+
+
+        $customer = DB::table('customer')
+            ->where('deleted', 0)
+            ->orderByDesc('id_customer')
+            ->get();
+
+        $content_data['opt_customer'] = $customer->toJson();
+
+        // dd($customer->toArray());
+
+
+        $content = view("admin_sales.sales_add", $content_data);
+        $breadcrumb = view('admin_sales.breadcrumb');
+
+        $layout_data = array();
+        $layout_data['page_title'] = "Purchase";
+        $layout_data['content'] = $content;
+        $layout_data['breadcrumb'] = $breadcrumb;
+
+        return view('admin.layout', $layout_data);
+    }
 }

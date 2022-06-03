@@ -30,16 +30,16 @@
     function Module_pesan() {
         var self = this;
 
-        self.kode_purchase = ko.observable('');
+        self.kode_sales = ko.observable('');
         self.tanggal = ko.observable('');
         self.pajak = ko.observable('0');
-        self.id_supplier = ko.observable('');
-        self.barang_diterima = ko.observable('');
-        self.jml_dibayar = ko.observable('');
+        self.id_customer = ko.observable('');
+        self.barang_dikirim = ko.observable('');
+        self.jml_dibayar = ko.observable('0');
         self.catatan = ko.observable('');
         // self.sisa_tagihan=ko.observable();
 
-        self.opt_supplier = ko.observableArray(<?= $opt_supplier ?>);
+        self.opt_customer = ko.observableArray(<?= $opt_customer ?>);
         self.item_list = ko.observableArray([]);
 
         self.sub = ko.computed(function() {
@@ -66,14 +66,6 @@
             return total;
         });
 
-
-        self.jml_dibayar.subscribe(function(newValue) {
-            if (curency_to_float(self.total()) < curency_to_float(newValue)) {
-                bootbox.alert("Maaf Jml dibayar tidak Boleh lebih dari total tagihan !");
-                self.jml_dibayar(0);
-            }
-        });
-
         self.sisa_tagihan = ko.computed(function() {
             var sisa_tagihan = 0;
 
@@ -84,6 +76,12 @@
             return sisa_tagihan;
         });
 
+        self.jml_dibayar.subscribe(function(newValue) {
+            if (curency_to_float(self.total()) < curency_to_float(newValue)) {
+                bootbox.alert("Maaf Jml dibayar tidak Boleh lebih dari total tagihan !");
+                self.jml_dibayar(0);
+            }
+        });
 
         self.delete_item_list = function(row) {
             self.item_list.remove(row);
@@ -126,7 +124,7 @@
         // alert('hello');
         ko.applyBindings(new Module_pesan(), document.getElementById("model_purchase"));
 
-        $('#id_supplier').select2({
+        $('#id_customer').select2({
             "theme": "bootstrap4"
         });
 
@@ -163,7 +161,7 @@
             e.preventDefault();
             JsLoadingOverlay.show();
             $.ajax({
-                url: '<?= url('admin/purchase/submit/') ?>', // Url to which the request is send
+                url: '<?= url('admin/sales/submit/') ?>', // Url to which the request is send
                 type: "POST", // Type of request to be send, called as method
                 data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
                 contentType: false, // The content type used when sending data to the server.
@@ -172,7 +170,7 @@
                 success: function(data) // A function to be called if request succeeds
                 {
                     if (data.success) {
-                        window.location = '<?= url('admin/purchase/') ?>';
+                        window.location = '<?= url('admin/sales/') ?>';
                         console.log(data);
                     } else {
                         toastr.error(data.message);

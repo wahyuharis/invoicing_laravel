@@ -35,7 +35,7 @@
         self.pajak = ko.observable('0');
         self.id_supplier = ko.observable('');
         self.barang_diterima = ko.observable('');
-        self.jml_dibayar = ko.observable('');
+        self.jml_dibayar = ko.observable('0');
         self.catatan = ko.observable('');
         // self.sisa_tagihan=ko.observable();
 

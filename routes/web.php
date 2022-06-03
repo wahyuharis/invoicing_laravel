@@ -84,9 +84,11 @@ Route::middleware([UdahLogin::class])->group(function () {
     Route::get('/admin/purchase/view/{id}', [PurchaseController::class, 'view']);
 
     Route::get('/admin/sales/', [SalesController::class, 'index']);
+    Route::get('/admin/sales/add', [SalesController::class, 'add']);
 
 
     Route::get('/admin/cashflow/', [CashflowController::class, 'index']);
+    // Route::get('/admin/cashflow/add', [CashflowController::class, 'add']);
 
 
 });
