@@ -326,4 +326,58 @@ class SalesController extends Controller
         );
         return response()->json($res);
     }
+
+    function view($id=''){
+        $form = new stdClass();
+
+        $content_data = array();
+
+        $sales = DB::table('sales')
+            ->leftJoin('customer', 'customer.id_customer', '=', 'sales.id_customer')
+            ->where('id_sales', $id)
+            ->first();
+
+        $sales_list = DB::table('sales_detail')
+            ->leftJoin('master_item', 'master_item.id_item', '=', 'sales_detail.id_item')
+            ->where('id_sales', $id)
+            ->get();
+
+        $cashflow = DB::table('cashflow')
+            ->where('tabel', 'sales')
+            ->where('id_tabel', $id)
+            ->first();
+
+        $cashflow2 = new stdClass();
+        $cashflow2->total = "0";
+        if ($cashflow) {
+            $cashflow2->total = $cashflow->total;
+        }
+
+
+        $sales_model = new AdminSalesModel();
+
+        // dd($purchase_model->get_sisa_tagihan($id));
+        // dd($purchase);
+
+        $sisa_tagihan = $sales->total;
+        if (count($sales_model->get_sisa_tagihan($id)) > 0) {
+            $sisa_tagihan = $sales_model->get_sisa_tagihan($id)[0]->sisa_tagihan;
+        }
+
+        $content_data['sales'] = $sales;
+        $content_data['sales_list'] = $sales_list;
+        $content_data['cashflow'] = $cashflow2;
+        $content_data['sisa_tagihan'] = $sisa_tagihan;
+        $content_data['id'] = $id;
+
+        $content = view("admin_sales.sales_view", $content_data);
+        $breadcrumb = view('admin_purchase.breadcrumb');
+
+        $layout_data = array();
+        $layout_data['page_title'] = "Sales";
+        $layout_data['content'] = $content;
+        $layout_data['breadcrumb'] = $breadcrumb;
+
+        return view('admin.layout', $layout_data);
+    }
 }

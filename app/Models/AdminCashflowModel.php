@@ -20,11 +20,19 @@ class AdminCashflowModel extends Model
         cashflow.tabel,
         cashflow.id_tabel,
         cashflow.total,
-        (case WHEN cashflow.tabel='purchase'
+        (case 
+         WHEN cashflow.tabel='purchase'
             then (
                 SELECT purchase.kode_purchase 
                 FROM `purchase` 
                 WHERE purchase.id_purchase=cashflow.id_tabel
+                limit 1
+            )
+         WHEN cashflow.tabel='sales'
+            then (
+                SELECT sales.kode_sales 
+                FROM sales 
+                WHERE sales.id_sales=cashflow.id_tabel
                 limit 1
             )
          else 'kondisi lain'

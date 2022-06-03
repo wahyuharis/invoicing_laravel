@@ -88,6 +88,8 @@ Route::middleware([UdahLogin::class])->group(function () {
     Route::post('/admin/sales/submit', [SalesController::class, 'submit']);
     Route::get('/admin/sales/edit/{id}', [SalesController::class, 'edit']);
     Route::post('/admin/sales/edit_submit/', [SalesController::class, 'edit_submit']);
+    Route::get('/admin/sales/view/{id}', [SalesController::class, 'view']);
+
     
 
 

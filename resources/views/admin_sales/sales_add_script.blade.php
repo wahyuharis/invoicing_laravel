@@ -170,7 +170,8 @@
                 success: function(data) // A function to be called if request succeeds
                 {
                     if (data.success) {
-                        window.location = '<?= url('admin/sales/') ?>';
+                        window.location = '<?= url('admin/sales/view') ?>/' + data.data.insert_id;
+                        // window.location = '<?= url('admin/sales/') ?>';
                         console.log(data);
                     } else {
                         toastr.error(data.message);
