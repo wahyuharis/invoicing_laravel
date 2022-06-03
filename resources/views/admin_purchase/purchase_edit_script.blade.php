@@ -32,7 +32,7 @@
                 success: function(data) // A function to be called if request succeeds
                 {
                     if (data.success) {
-                        window.location = '<?= url('admin/purchase/') ?>';
+                        window.location = '<?= url('admin/purchase/view') ?>/' + data.data.insert_id;
                         console.log(data);
                     } else {
                         toastr.error(data.message);

@@ -172,8 +172,7 @@
                 success: function(data) // A function to be called if request succeeds
                 {
                     if (data.success) {
-                        insert_id=data.data.insert_id;
-                        window.location = '<?= url('admin/purchase/view/') ?>/' + insert_id;
+                        window.location = '<?= url('admin/purchase/') ?>';
                         console.log(data);
                     } else {
                         toastr.error(data.message);

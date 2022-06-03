@@ -138,6 +138,7 @@ class PurchaseController extends Controller
 
             $db0 = DB::table('purchase')->insert($insert);
             $insert_id = DB::getPdo()->lastInsertId();
+            $data['insert_id'] = $insert_id;
 
             $insert2 = array();
             foreach ($item_list as $row) {
@@ -329,6 +330,8 @@ class PurchaseController extends Controller
 
             $db2 = DB::table('cashflow')->insert($insert3);
         }
+
+        $data['insert_id'] = $id;
         DB::commit();
 
         $res = array(

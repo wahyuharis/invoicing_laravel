@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ItemController;
 use App\Http\Controllers\admin\PurchaseController;
+use App\Http\Controllers\admin\SalesController;
 use App\Http\Controllers\admin\StockController;
 use App\Http\Controllers\admin\SupplierController;
 use App\Http\Controllers\admin\UserController;
@@ -82,6 +83,7 @@ Route::middleware([UdahLogin::class])->group(function () {
     Route::post('/admin/purchase/edit_submit/', [PurchaseController::class, 'edit_submit']);
     Route::get('/admin/purchase/view/{id}', [PurchaseController::class, 'view']);
 
+    Route::get('/admin/sales/', [SalesController::class, 'index']);
 
 
     Route::get('/admin/cashflow/', [CashflowController::class, 'index']);
