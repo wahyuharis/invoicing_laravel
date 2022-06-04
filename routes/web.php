@@ -90,11 +90,10 @@ Route::middleware([UdahLogin::class])->group(function () {
     Route::get('/admin/sales/edit/{id}', [SalesController::class, 'edit']);
     Route::post('/admin/sales/edit_submit/', [SalesController::class, 'edit_submit']);
     Route::get('/admin/sales/view/{id}', [SalesController::class, 'view']);
+    Route::get('/admin/sales/delete/{id}', [SalesController::class, 'delete']);
+
 
     
-
-
-
     Route::get('/admin/cashflow/', [CashflowController::class, 'index']);
     // Route::get('/admin/cashflow/add', [CashflowController::class, 'add']);
 

@@ -380,4 +380,53 @@ class SalesController extends Controller
 
         return view('admin.layout', $layout_data);
     }
+
+    function delete($id = '')
+    {
+        DB::beginTransaction();
+        $sales = DB::table('sales')->where('id_sales', '=', $id)->get()->first();
+        $sales_list = DB::table('sales_detail')->where('id_sales', '=', $id)->get()->toArray();
+
+        // dd($purchase);
+
+        if ($sales->barang_dikirim > 0) {
+            foreach ($sales_list as $row) {
+
+                $db3 = DB::table('stock')
+                    ->where('id_item', $row->id_item)
+                    ->orderByDesc('id_stock')
+                    ->first();
+
+                $qty_akhir = 0;
+                $qty_awal = 0;
+                if ($db3) {
+                    $qty_awal = $db3->qty_akhir;
+                    $qty_akhir = $db3->qty_akhir + floatval2($row->qty);;
+                }
+
+
+                $insert4['id_item'] = $row->id_item;
+                $insert4['qty_awal'] = $qty_awal;
+                $insert4['qty_out'] = floatval2($row->qty);
+                $insert4['qty_akhir'] = $qty_akhir;
+                $insert4['keterangan'] = "Batal Transaksi";
+
+                $db4 = DB::table('stock')->insert($insert4);
+            }
+        }
+
+
+        $sales = DB::table('sales')->where(['id_sales' => $id])->delete();
+        $sales_list=DB::table('sales_detail')->where(['id_sales' => $id])->delete();
+        $cashflow = DB::table('cashflow')
+            ->where([
+                'id_tabel' => $id,
+                'tabel' => 'purchase',
+            ])->delete();
+        DB::commit();
+
+        $prev = url()->previous();
+
+        return redirect($prev);
+    }
 }

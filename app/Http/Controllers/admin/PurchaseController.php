@@ -433,6 +433,7 @@ class PurchaseController extends Controller
 
 
         $purchase = DB::table('purchase')->where(['id_purchase' => $id])->delete();
+        $purchase_list=DB::table('purchase_detail')->where(['id_purchase' => $id])->delete();
         $cashflow = DB::table('cashflow')
             ->where([
                 'id_tabel' => $id,
