@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <textarea name="ko_output" class="form-control" data-bind="value:ko.toJSON($root)"></textarea>
+                <textarea name="ko_output" class="form-control d-none" data-bind="value:ko.toJSON($root)"></textarea>
             </div>
         </div>
 

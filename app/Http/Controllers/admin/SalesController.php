@@ -64,7 +64,7 @@ class SalesController extends Controller
         $breadcrumb = view('admin_sales.breadcrumb');
 
         $layout_data = array();
-        $layout_data['page_title'] = "Purchase";
+        $layout_data['page_title'] = "Sales Add";
         $layout_data['content'] = $content;
         $layout_data['breadcrumb'] = $breadcrumb;
 

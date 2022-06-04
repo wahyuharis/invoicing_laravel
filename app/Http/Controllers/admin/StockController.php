@@ -69,4 +69,16 @@ class StockController extends Controller
 
         return view('admin.layout', $layout_data);
     }
+
+    function adj(){
+
+        $content_data=array();
+
+        $layout_data = array();
+        $layout_data['page_title'] = "Stock Adj";
+        $layout_data['content'] = view('admin_stock.stock_detail', $content_data);
+        $layout_data['breadcrumb'] = view('admin_stock.breadcrumb');
+
+        return view('admin.layout', $layout_data);
+    }
 }
