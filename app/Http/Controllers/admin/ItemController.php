@@ -235,6 +235,15 @@ class ItemController extends Controller
         $db = DB::table('master_item')->where('id_item', '=', $id)
             ->first();
 
+        $db2 = DB::table('stock')->where('id_item', '=', $id)->orderByDesc('id_stock')
+            ->limit(1)
+            ->get()->toArray();
+
+        $db->qty_akhir = 0;
+        if (count($db2) > 0) {
+            $db->qty_akhir=$db2[0]->qty_akhir;
+        }
+
         $res = (array) $db;
 
         return response()->json($res);

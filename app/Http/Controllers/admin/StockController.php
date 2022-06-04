@@ -76,7 +76,7 @@ class StockController extends Controller
 
         $layout_data = array();
         $layout_data['page_title'] = "Stock Adj";
-        $layout_data['content'] = view('admin_stock.stock_detail', $content_data);
+        $layout_data['content'] = view('admin_stock.stock_adj', $content_data);
         $layout_data['breadcrumb'] = view('admin_stock.breadcrumb');
 
         return view('admin.layout', $layout_data);
