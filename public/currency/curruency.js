@@ -22,7 +22,7 @@ function format() {
         num = numeral(num).format();
         $(this).val(num);
     });
-    
+
     $('.thousand').focusout(function () {
         num = $(this).val();
         num = numeral(num).format('0,0.00');
@@ -40,12 +40,14 @@ function format() {
     $('.number').focusout(function () {
         num = $(this).val();
         num = numeral(num).format('0,0.00');
+        // num = parseFloat(num);
         $(this).val(num);
     });
 
     $('.number').each(function () {
         num = $(this).val();
         num = numeral(num).format();
+        // num = parseFloat(num);
         $(this).val(num);
     });
 }

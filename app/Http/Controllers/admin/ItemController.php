@@ -150,14 +150,15 @@ class ItemController extends Controller
                     $insert['kode_item'] = $request->input('kode_item');
                 }
 
+                if (!empty($newname)) {
+                    $insert['foto1'] = $newname;
+                }
 
-
-                $insert['foto1'] = $newname;
                 $insert['nama_item'] = $request->input('nama_item');
                 $insert['id_category'] = $request->input('id_category');
                 $insert['satuan_item'] = $request->input('satuan_item');
-                $insert['harga_beli'] = $request->input('harga_beli');
-                $insert['harga_jual'] = $request->input('harga_jual');
+                $insert['harga_beli'] = floatval2($request->input('harga_beli'));
+                $insert['harga_jual'] = floatval2($request->input('harga_jual'));
 
                 $db = DB::table('master_item')
                     ->insert($insert);
@@ -171,12 +172,15 @@ class ItemController extends Controller
                     $insert['kode_item'] = $request->input('kode_item');
                 }
 
-                $insert['foto1'] = $newname;
+                if (!empty($newname)) {
+                    $insert['foto1'] = $newname;
+                }
+                
                 $insert['nama_item'] = $request->input('nama_item');
                 $insert['id_category'] = $request->input('id_category');
                 $insert['satuan_item'] = $request->input('satuan_item');
-                $insert['harga_beli'] = $request->input('harga_beli');
-                $insert['harga_jual'] = $request->input('harga_jual');
+                $insert['harga_beli'] = floatval2($request->input('harga_beli'));
+                $insert['harga_jual'] = floatval2($request->input('harga_jual'));
 
                 $affected = DB::table('master_item')
                     ->where('id_item', $id)
@@ -241,7 +245,7 @@ class ItemController extends Controller
 
         $db->qty_akhir = 0;
         if (count($db2) > 0) {
-            $db->qty_akhir=$db2[0]->qty_akhir;
+            $db->qty_akhir = $db2[0]->qty_akhir;
         }
 
         $res = (array) $db;

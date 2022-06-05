@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\ItemController;
 use App\Http\Controllers\admin\PurchaseController;
+use App\Http\Controllers\admin\PurchaseReturController;
 use App\Http\Controllers\admin\SalesController;
 use App\Http\Controllers\admin\StockController;
 use App\Http\Controllers\admin\SupplierController;
@@ -75,6 +76,7 @@ Route::middleware([UdahLogin::class])->group(function () {
     Route::get('/admin/stock/', [StockController::class, 'index']);
     Route::get('/admin/stock/detail/{id}', [StockController::class, 'stock_detail']);
     Route::get('/admin/stock/adj', [StockController::class, 'adj']);
+    Route::post('/admin/stock/adj_submit', [StockController::class, 'adj_submit']);
 
     Route::get('/admin/purchase/', [PurchaseController::class, 'index']);
     Route::get('/admin/purchase/add/', [PurchaseController::class, 'add']);
@@ -91,6 +93,9 @@ Route::middleware([UdahLogin::class])->group(function () {
     Route::post('/admin/sales/edit_submit/', [SalesController::class, 'edit_submit']);
     Route::get('/admin/sales/view/{id}', [SalesController::class, 'view']);
     Route::get('/admin/sales/delete/{id}', [SalesController::class, 'delete']);
+
+
+    Route::get('/admin/purchase_retur/', [PurchaseReturController::class, 'index']);
 
 
     

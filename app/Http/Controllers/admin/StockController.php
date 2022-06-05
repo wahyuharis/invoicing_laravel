@@ -70,9 +70,10 @@ class StockController extends Controller
         return view('admin.layout', $layout_data);
     }
 
-    function adj(){
+    function adj()
+    {
 
-        $content_data=array();
+        $content_data = array();
 
         $layout_data = array();
         $layout_data['page_title'] = "Stock Adj";
@@ -80,5 +81,46 @@ class StockController extends Controller
         $layout_data['breadcrumb'] = view('admin_stock.breadcrumb');
 
         return view('admin.layout', $layout_data);
+    }
+
+    function adj_submit(Request $request)
+    {
+        $success = true;
+        $data = [];
+        $message = "";
+
+        $ko_output = $request->input('ko_output');
+        $ko_array = json_decode($ko_output, true);
+
+        // dd($ko_array);
+
+        if (!is_array($ko_array['item_list']) && count($ko_array['item_list'])) {
+            $success = false;
+            $message .= "Maaf item masih kosong";
+        }
+
+        if ($success) {
+            $item_list = $ko_array['item_list'];
+
+            foreach ($item_list as $row) {
+
+                $insert=array();
+                $insert['id_item'] = $row['id_item'];
+                $insert['qty_awal'] = floatval2($row['qty']);
+                $insert['qty_adj'] = floatval2($row['qty_adj']);
+                $insert['qty_akhir'] = floatval2($row['qty_adj']);
+                $db = DB::table('stock')->insert($insert);
+            }
+        }
+
+
+
+
+        $res = array(
+            'data' => $data,
+            'success' => $success,
+            'message' => $message
+        );
+        return response()->json($res);
     }
 }

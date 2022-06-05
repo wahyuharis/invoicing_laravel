@@ -1,5 +1,8 @@
 <script>
     $(document).ready(function() {
+
+        format();
+
         $('#form_1').submit(function(e) {
             e.preventDefault();
             JsLoadingOverlay.show();

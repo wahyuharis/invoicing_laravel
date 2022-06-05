@@ -46,12 +46,12 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="">Harga Beli :</label>
-                <input type="text" name="harga_beli" value="<?= $form->harga_beli ?>" class="form-control" placeholder="Harga Beli" id="harga_beli">
+                <input type="text" name="harga_beli" value="<?= $form->harga_beli ?>" class="form-control thousand" placeholder="Harga Beli" id="harga_beli">
             </div>
 
             <div class="form-group">
                 <label for="">Harga Jual :</label>
-                <input type="text" name="harga_jual" value="<?= $form->harga_jual ?>" class="form-control" placeholder="Harga Jual" id="harga_jual">
+                <input type="text" name="harga_jual" value="<?= $form->harga_jual ?>" class="form-control thousand" placeholder="Harga Jual" id="harga_jual">
             </div>
 
         </div>

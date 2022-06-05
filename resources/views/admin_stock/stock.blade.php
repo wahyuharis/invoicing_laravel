@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-4">
-        <!-- <a href="<?= url('admin/stock/add') ?>" class="btn btn-primary">Add</a> -->
+        <a href="<?= url('admin/stock/adj') ?>" class="btn btn-primary">Adjustment</a>
     </div>
     <div class="col-md-4">
     </div>

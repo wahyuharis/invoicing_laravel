@@ -21,7 +21,7 @@
                 </thead>
                 <tbody data-bind="foreach:item_list">
                     <tr>
-                        <td> <span data-bind="click: $root.delete_item_list" class="btn btn-danger btn-sm">delete</span> </td>
+                        <td> <span data-bind="click: $root.delete_item_list" class="btn btn-danger btn-sm">remove</span> </td>
                         <td> <span data-bind="text:kode_item"></span> </td>
                         <td> <span data-bind="text:nama_item"></span> </td>
                         <td> <span data-bind="text:qty"></span> </td>
@@ -31,14 +31,15 @@
                 </tbody>
             </table>
             <br><br>
-            <textarea name="ko_output" class="form-control" data-bind="value:ko.toJSON($root)"></textarea>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12" style="min-height: 300px;">
-
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a class="btn btn-secondary" href="<?= url('admin/sales') ?>">Kembali</a>
+            <form id="form_1" method="post">
+                <textarea name="ko_output" class="form-control d-none" data-bind="value:ko.toJSON($root)"></textarea>
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a class="btn btn-secondary" href="<?= url('admin/stock') ?>">Kembali</a>
+            </form>
         </div>
     </div>
 </div>

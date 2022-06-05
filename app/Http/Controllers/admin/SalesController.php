@@ -421,7 +421,7 @@ class SalesController extends Controller
         $cashflow = DB::table('cashflow')
             ->where([
                 'id_tabel' => $id,
-                'tabel' => 'purchase',
+                'tabel' => 'sales',
             ])->delete();
         DB::commit();
 
