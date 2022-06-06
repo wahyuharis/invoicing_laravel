@@ -16,7 +16,7 @@ class PurchaseReturController extends Controller
         $searchTerm = $request->input('search');
 
         $purchase_retur = DB::table('purchase_retur')
-            ->selectRaw("purchase_retur.*")
+            ->selectRaw("purchase_retur.*,supplier.*")
             ->orderByDesc('id_purchase_retur')
             ->leftJoin('supplier', 'supplier.id_supplier', '=', 'purchase_retur.id_supplier')
             ->join('purchase', 'purchase.id_purchase', '=', 'purchase_retur.id_purchase')
@@ -30,7 +30,7 @@ class PurchaseReturController extends Controller
             )
             ->paginate(5);
 
-        $content_data['purchase'] = $purchase_retur;
+        $content_data['purchase_retur'] = $purchase_retur;
         $content = view("admin_purchase_retur.purchase_retur", $content_data);
         $breadcrumb = view('admin_purchase.breadcrumb');
 
