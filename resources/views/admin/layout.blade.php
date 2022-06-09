@@ -77,7 +77,7 @@
                         <a class="nav-link" href="<?= url('admin/purchase/') ?>">Purchase</a>
                     </li> -->
 
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                             Purchase
                         </a>
@@ -86,8 +86,8 @@
                             <a class="dropdown-item" href="<?= url('admin/purchase_retur') ?>">Retur</a>
                         </div>
                     </li>
-                    
-                    <li class="nav-item dropdown">
+                     -->
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                             Sales
                         </a>
@@ -95,6 +95,13 @@
                             <a class="dropdown-item" href="<?= url('admin/sales/') ?>">Sales</a>
                             <a class="dropdown-item" href="<?= url('admin/sales_retur') ?>">Retur</a>
                         </div>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=url('admin/purchase')?>">Pembelian</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=url('admin/sales')?>">Penjualan</a>
                     </li>
 
                     <li class="nav-item">

@@ -14,6 +14,9 @@ use Validator;
 class PurchaseController extends Controller
 {
     //
+
+    private $judul = "Pembelian";
+
     function index(Request $request)
     {
 
@@ -37,7 +40,7 @@ class PurchaseController extends Controller
         $breadcrumb = view('admin_purchase.breadcrumb');
 
         $layout_data = array();
-        $layout_data['page_title'] = "Purchase";
+        $layout_data['page_title'] = $this->judul;
         $layout_data['content'] = $content;
         $layout_data['breadcrumb'] = $breadcrumb;
 
@@ -67,7 +70,9 @@ class PurchaseController extends Controller
         $breadcrumb = view('admin_purchase.breadcrumb');
 
         $layout_data = array();
-        $layout_data['page_title'] = "Purchase";
+        // $layout_data['page_title'] = "Purchase";
+        $layout_data['page_title'] = "Buat ".$this->judul;
+
         $layout_data['content'] = $content;
         $layout_data['breadcrumb'] = $breadcrumb;
 
@@ -258,7 +263,9 @@ class PurchaseController extends Controller
         $breadcrumb = view('admin_purchase.breadcrumb');
 
         $layout_data = array();
-        $layout_data['page_title'] = "Purchase";
+        // $layout_data['page_title'] = "Purchase";
+        $layout_data['page_title'] = "Ubah ".$this->judul;
+
         $layout_data['content'] = $content;
         $layout_data['breadcrumb'] = $breadcrumb;
 
@@ -433,7 +440,7 @@ class PurchaseController extends Controller
 
 
         $purchase = DB::table('purchase')->where(['id_purchase' => $id])->delete();
-        $purchase_list=DB::table('purchase_detail')->where(['id_purchase' => $id])->delete();
+        $purchase_list = DB::table('purchase_detail')->where(['id_purchase' => $id])->delete();
         $cashflow = DB::table('cashflow')
             ->where([
                 'id_tabel' => $id,

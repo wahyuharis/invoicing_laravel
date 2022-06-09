@@ -6,16 +6,16 @@
 ?>
 <div class="row">
     <div class="col-md-4">
-        <a href="<?= url('admin/purchase/add') ?>" class="btn btn-primary">Add</a>
+        <a href="<?= url('admin/purchase_retur/add') ?>" class="btn btn-primary">Add</a>
 
-        <a href="<?= url('admin/purchase/') ?>" class="btn btn-secondary">
+        <a href="<?= url('admin/purchase_retur/') ?>" class="btn btn-secondary">
             <i class="fa-solid fa-arrows-rotate"></i>
         </a>
     </div>
     <div class="col-md-4">
     </div>
     <div class="col-md-4">
-        <form method="get" action="<?= url('admin/purchase/') ?>">
+        <form method="get" action="<?= url('admin/purchase_retur/') ?>">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" name="search" value="{{ Request::input('search') }}" placeholder="Search">
                 <div class="input-group-append">
