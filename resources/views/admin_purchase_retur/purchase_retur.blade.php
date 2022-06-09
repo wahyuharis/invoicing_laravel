@@ -74,10 +74,10 @@
                         </td>
                         <td>
                             <?php
-                            if ($row->barang_diterima > 0) { ?>
-                                <span class="badge badge-primary">Diterima</span>
+                            if ($row->barang_dikembalikan > 0) { ?>
+                                <span class="badge badge-primary">Dikembalikan</span>
                             <?php } else { ?>
-                                <span class="badge badge-secondary">Belum Diterima</span>
+                                <span class="badge badge-secondary">Belum Dikembalikan</span>
                             <?php }  ?>
                         </td>
                     </tr>

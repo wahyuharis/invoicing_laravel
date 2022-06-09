@@ -43,7 +43,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Catatan :</label>
-                    <textarea data-bind="value:catatan" class="form-control" name="catatan" id="catatan"></textarea>
+                    <textarea data-bind="value:catatan" class="form-control" id="catatan"></textarea>
                 </div>
             </div>
             <div class="col-md-12">

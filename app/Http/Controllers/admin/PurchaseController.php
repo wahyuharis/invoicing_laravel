@@ -15,7 +15,7 @@ class PurchaseController extends Controller
 {
     //
 
-    private $judul = "Pembelian";
+    private $judul = "Purchase";
 
     function index(Request $request)
     {

@@ -117,6 +117,7 @@
 
     // function add_item(id_item, kode_item, nama_item, harga_beli, qty, satuan_item, disc) {
                     //
+                    self.item_list([]);
                     for(var i=0;i<detail_list.length;i++){
                         detail=detail_list[i];
                         self.item_list.push(new add_item( detail.id_item,detail.kode_item,detail.nama_item,detail.harga,detail.qty,detail.satuan_item,detail.disc));
@@ -183,7 +184,7 @@
             e.preventDefault();
             JsLoadingOverlay.show();
             $.ajax({
-                url: '<?= url('admin/purchase/submit/') ?>', // Url to which the request is send
+                url: '<?= url('admin/purchase_retur/submit/') ?>', // Url to which the request is send
                 type: "POST", // Type of request to be send, called as method
                 data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
                 contentType: false, // The content type used when sending data to the server.
@@ -193,7 +194,8 @@
                 {
                     if (data.success) {
                         insert_id = data.data.insert_id;
-                        window.location = '<?= url('admin/purchase/view/') ?>/' + insert_id;
+                        // window.location = '<?= url('admin/purchase_retur/view/') ?>/' + insert_id;
+                        window.location = '<?= url('admin/purchase_retur/') ?>';
                         console.log(data);
                     } else {
                         toastr.error(data.message);

@@ -10,6 +10,9 @@ use stdClass;
 
 class PurchaseReturController extends Controller
 {
+
+    private $judul="Purchase Retur";
+
     //
     function index(Request $request)
     {
@@ -37,7 +40,7 @@ class PurchaseReturController extends Controller
         $breadcrumb = view('admin_purchase_retur.breadcrumb');
 
         $layout_data = array();
-        $layout_data['page_title'] = "Purchase Retur";
+        $layout_data['page_title'] = $this->judul;
         $layout_data['content'] = $content;
         $layout_data['breadcrumb'] = $breadcrumb;
 
@@ -66,7 +69,7 @@ class PurchaseReturController extends Controller
         $breadcrumb = view('admin_purchase.breadcrumb');
 
         $layout_data = array();
-        $layout_data['page_title'] = "Purchase";
+        $layout_data['page_title'] = "Buat ".$this->judul;
         $layout_data['content'] = $content;
         $layout_data['breadcrumb'] = $breadcrumb;
 
@@ -159,5 +162,24 @@ class PurchaseReturController extends Controller
         );
 
         return response()->json($response);
+    }
+
+    function submit(Request $request)
+    {
+        $message = "";
+        $success = true;
+        $data = [];
+
+        $ko_output = $request->input('ko_output');
+        $ko_array = json_decode($ko_output, true);
+
+
+        if (empty(trim($ko_array['kode_purchase_retur']))) {
+            $ko_array['kode_purchase_retur'] = "PR-" . strtoupper(uniqid());
+        }
+        dd($ko_array);
+
+
+        return response()->json();
     }
 }
