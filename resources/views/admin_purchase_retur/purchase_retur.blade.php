@@ -40,7 +40,6 @@
                 <th>Sub</th>
                 <th>Pajak</th>
                 <th>Total</th>
-                <th>Barang Dikembalikan</th>
             </thead>
             <tbody>
                 <?php foreach ($purchase_retur as $row) { ?>
@@ -57,14 +56,7 @@
                         <td><?= number_format($row->sub, 2) ?></td>
                         <td><?= $row->pajak ?></td>
                         <td><?= number_format($row->total, 2) ?></td>
-                        <td>
-                            <?php
-                            if ($row->barang_dikembalikan > 0) { ?>
-                                <span class="badge badge-primary">Dikembalikan</span>
-                            <?php } else { ?>
-                                <span class="badge badge-secondary">Belum Dikembalikan</span>
-                            <?php }  ?>
-                        </td>
+                       
                     </tr>
                 <?php } ?>
             </tbody>

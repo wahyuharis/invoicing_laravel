@@ -33,11 +33,12 @@
                     <input type="text" readonly id="tanggal" data-bind="value:tanggal" class="form-control" placeholder="Tanggal">
                 </div>
                 <div class="form-group">
-                    <label for="">Barang Diterima :</label>
+                    <!-- <label for="">Barang Dikembalikan :</label>
                     <select id="barang_diterima" class="form-control" data-bind="value:barang_diterima">
                         <option value="0">Barang Belum Dikembalikan</option>
                         <option value="1">Barang Telah Dikembalikan</option>
-                    </select>
+                    </select> -->
+                    <input type="hidden" name="barang_diterima" value="1" >
                 </div>
             </div>
             <div class="col-md-4">
@@ -104,10 +105,38 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>Total Potongan</th>
+                        <th>Total Tagihan Purchase</th>
+                        <th>:</th>
+                        <th>
+                            <b data-bind="text:tagihan_purchase"></b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Jml Tercicil</th>
+                        <th>:</th>
+                        <th>
+                            <b data-bind="text:jumlah_tercicil"></b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Total Potongan Retur</th>
                         <th>:</th>
                         <th>
                             <b data-bind="text:total"></b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th> Uang Lebih </th>
+                        <th>:</th>
+                        <th>
+                            <b data-bind="text:uang_lebih"></b>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th> Sisa Tagihan </th>
+                        <th>:</th>
+                        <th>
+                            <b data-bind="text:sisa_tagihan"></b>
                         </th>
                     </tr>
                     <!-- <tr>

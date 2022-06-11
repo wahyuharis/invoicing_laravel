@@ -99,6 +99,7 @@ Route::middleware([UdahLogin::class])->group(function () {
     Route::get('/admin/purchase_retur/add', [PurchaseReturController::class, 'add']);
     Route::get('/admin/purchase_retur/purchase_dtt', [PurchaseReturController::class, 'purchase_dtt']);
     Route::get('/admin/purchase_retur/purchase_detail/{id}', [PurchaseReturController::class, 'purchase_detail']);
+    Route::get('/admin/purchase_retur/view/{id}', [PurchaseReturController::class, 'view']);
     Route::post('/admin/purchase_retur/submit', [PurchaseReturController::class, 'submit']);
 
 

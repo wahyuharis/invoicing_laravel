@@ -71,7 +71,7 @@ class PurchaseController extends Controller
 
         $layout_data = array();
         // $layout_data['page_title'] = "Purchase";
-        $layout_data['page_title'] = "Buat ".$this->judul;
+        $layout_data['page_title'] = "Buat " . $this->judul;
 
         $layout_data['content'] = $content;
         $layout_data['breadcrumb'] = $breadcrumb;
@@ -117,7 +117,7 @@ class PurchaseController extends Controller
         // die();
 
         if (empty(trim($ko_array['kode_purchase']))) {
-            $ko_array['kode_purchase'] = strtoupper(uniqid());
+            $ko_array['kode_purchase'] = 'PO-' . strtoupper(uniqid());
         }
 
         // $qty_akhir = DB::table('stock')
@@ -145,7 +145,7 @@ class PurchaseController extends Controller
             $insert_id = DB::getPdo()->lastInsertId();
             $data['insert_id'] = $insert_id;
 
-            
+
             $insert2 = array();
             foreach ($item_list as $row) {
                 $insert2['id_purchase'] = $insert_id;
@@ -265,7 +265,7 @@ class PurchaseController extends Controller
 
         $layout_data = array();
         // $layout_data['page_title'] = "Purchase";
-        $layout_data['page_title'] = "Ubah ".$this->judul;
+        $layout_data['page_title'] = "Ubah " . $this->judul;
 
         $layout_data['content'] = $content;
         $layout_data['breadcrumb'] = $breadcrumb;

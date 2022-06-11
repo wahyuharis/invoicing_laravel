@@ -30,8 +30,9 @@ class PurchaseReturController extends Controller
                 (
                 purchase_retur.kode_retur like ? 
                 or purchase_retur.tanggal like ? 
-                or `supplier`.`nama_suplier` like ? )",
-                ["%{$searchTerm}%", "%{$searchTerm}%", "%{$searchTerm}%"]
+                or `supplier`.`nama_suplier` like ? 
+                or purchase.kode_purchase like ?)",
+                ["%{$searchTerm}%", "%{$searchTerm}%", "%{$searchTerm}%","%{$searchTerm}%"]
             )
             ->paginate(5);
 
@@ -94,7 +95,9 @@ class PurchaseReturController extends Controller
             ->orderByDesc('id_purchase')
             ->leftJoin('supplier', 'supplier.id_supplier', '=', 'purchase.id_supplier')
             ->whereRaw(
-                "purchase.deleted=0 and 
+                "purchase.deleted=0 and
+                purchase.barang_diterima = 1
+                and 
                 (kode_purchase like ? 
                 or tanggal like ? 
                 or `supplier`.`nama_suplier` like ? )",
@@ -117,9 +120,9 @@ class PurchaseReturController extends Controller
             $buff[] = $row->kode_purchase;
             $buff[] = $row->nama_suplier;
             $buff[] = $row->tanggal;
-            $buff[] = $row->sub;
+            $buff[] = number_format( $row->sub,2 );
             $buff[] = $row->pajak;
-            $buff[] = $row->total;
+            $buff[] = number_format( $row->total,2 );
 
             array_push($res, $buff);
         }
@@ -149,6 +152,23 @@ class PurchaseReturController extends Controller
             ->leftJoin('master_item', 'master_item.id_item', '=', 'purchase_detail.id_item')
             ->where('id_purchase', $id)->get()->toArray();
 
+        $db = DB::select("SELECT  
+                sum(cashflow.total) as total
+                FROM `cashflow` WHERE 
+                `id_tabel`=?
+                AND
+                `tabel` = 'purchase'
+                GROUP by id_tabel
+                limit 1;
+        ", [$id]);
+
+        // dd($db);
+
+        $jml_tercicil = 0;
+        if (count($db) > 0) {
+            $jml_tercicil = $db[0]->total * (-1);
+        }
+
         $purchase_detail_arr = array();
         foreach ($purchase_detail as $row) {
             $buff = (array) $row;
@@ -157,6 +177,7 @@ class PurchaseReturController extends Controller
         }
 
         $response = array(
+            'jml_tercicil' => $jml_tercicil,
             'purchase' => $purchase_arr,
             'purchase_detail' => $purchase_detail_arr
         );
@@ -221,7 +242,7 @@ class PurchaseReturController extends Controller
             $insert['pajak'] = floatval2($ko_array['pajak']);
             $insert['total'] = floatval2($ko_array['total']);
             $insert['catatan'] = trim($ko_array['catatan']);
-            $insert['barang_dikembalikan'] = trim($ko_array['barang_diterima']);
+            // $insert['barang_dikembalikan'] = trim($ko_array['barang_diterima']);
 
             $db = DB::table('purchase_retur')->insert($insert);
             $insert_id = DB::getPdo()->lastInsertId();
@@ -242,18 +263,19 @@ class PurchaseReturController extends Controller
                 $db1 = DB::table('purchase_retur_detail')->insert($insert2);
             }
 
-            // $insert3 = array();
-            // if (floatval2($ko_array['total']) > 0) {
-            //     $insert3['keperluan'] = "purchase retur";
-            //     $insert3['tabel'] = "purchase";
-            //     $insert3['id_tabel'] = trim($ko_array['id_purchase']);
-            //     $insert3['total'] = floatval2($ko_array['total']) * (-1);
-            //     $insert3['keterangan'] = "Retur Pembelian Barang";
+            $insert3 = array();
+            if (floatval2($ko_array['total']) > 0) {
+                $insert3['keperluan'] = "purchase retur";
+                $insert3['is_retur'] = "1";
+                $insert3['tabel'] = "purchase";
+                $insert3['id_tabel'] = trim($ko_array['id_purchase']);
+                $insert3['total'] = floatval2($ko_array['total']) * (-1);
+                $insert3['keterangan'] = "Retur Pembelian Barang";
 
-            //     $db2 = DB::table('cashflow')->insert($insert3);
-            // }
+                $db2 = DB::table('cashflow')->insert($insert3);
+            }
 
-            if ($ko_array['barang_diterima'] == 1) {
+            // if ($ko_array['barang_diterima'] == 1) {
                 $insert4 = array();
                 foreach ($item_list as $row4) {
 
@@ -285,9 +307,8 @@ class PurchaseReturController extends Controller
 
                     $db4 = DB::table('stock')->insert($insert4);
                 }
-            }
+            // }
             DB::commit();
-
         }
 
         $res = array(
@@ -297,5 +318,19 @@ class PurchaseReturController extends Controller
         );
 
         return response()->json($res);
+    }
+
+    function view($id = '')
+    {
+
+        $purchase_retur = DB::table('purchase_retur')
+            ->selectRaw("purchase_retur.*,supplier.*,purchase.kode_purchase")
+            ->orderByDesc('id_purchase_retur')
+            ->leftJoin('supplier', 'supplier.id_supplier', '=', 'purchase_retur.id_supplier')
+            ->join('purchase', 'purchase.id_purchase', '=', 'purchase_retur.id_purchase')
+            ->where('id_purchase_retur', $id)
+            ->first();
+
+        dd($purchase_retur);
     }
 }

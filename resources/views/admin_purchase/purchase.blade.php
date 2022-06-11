@@ -68,7 +68,7 @@ $purchase_model = new AdminPurchaseModel();
                             }
                             elseif($sisa_tagihan[0]->sisa_tagihan < 0){
                                 echo '<span class="badge badge-primary">Pembayaran Lebih</span><br>';
-                                echo number_format($sisa_tagihan[0]->sisa_tagihan, 2);
+                                echo number_format( ($sisa_tagihan[0]->sisa_tagihan * -1 ) , 2);
 
                             }
                             else {

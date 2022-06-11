@@ -30,7 +30,7 @@
     function Module_pesan() {
         var self = this;
 
-        self.id_purchase=ko.observable('');
+        self.id_purchase = ko.observable('');
         self.kode_purchase_retur = ko.observable('');
         self.kode_purchase = ko.observable('');
         self.tanggal = ko.observable('');
@@ -44,6 +44,9 @@
         self.jml_dibayar = ko.observable('0');
         self.catatan = ko.observable('');
         // self.sisa_tagihan=ko.observable();
+
+        self.tagihan_purchase = ko.observable('0');
+        self.jumlah_tercicil = ko.observable('0');
 
         self.opt_supplier = ko.observableArray(<?= $opt_supplier ?>);
         self.item_list = ko.observableArray([]);
@@ -80,16 +83,49 @@
             }
         });
 
-        self.sisa_tagihan = ko.computed(function() {
-            var sisa_tagihan = 0;
+        // self.sisa_tagihan = ko.computed(function() {
+        //     var sisa_tagihan = 0;
 
-            sisa_tagihan = (curency_to_float(self.total())) - curency_to_float(self.jml_dibayar());
+        //     sisa_tagihan = (curency_to_float(self.total())) - curency_to_float(self.jml_dibayar());
 
-            sisa_tagihan = float_to_currency(sisa_tagihan);
+        //     sisa_tagihan = float_to_currency(sisa_tagihan);
 
-            return sisa_tagihan;
+        //     return sisa_tagihan;
+        // });
+
+        self.uang_lebih = ko.computed(function() {
+            var total = 0;
+
+            total = curency_to_float(self.tagihan_purchase()) - curency_to_float(self.jumlah_tercicil()) - curency_to_float(self.total());
+
+            total = total;
+            if (total < 0) {
+                total = total * (-1);
+            } else {
+                total = 0;
+            }
+
+            total = float_to_currency(total);
+
+            return total;
         });
 
+        self.sisa_tagihan = ko.computed(function() {
+            var total = 0;
+
+            total = curency_to_float(self.tagihan_purchase()) - curency_to_float(self.jumlah_tercicil()) - curency_to_float(self.total());
+
+            total = total;
+            if (total > 0) {
+                total = total;
+            } else {
+                total = 0;
+            }
+
+            total = float_to_currency(total);
+
+            return total;
+        });
 
         self.delete_item_list = function(row) {
             self.item_list.remove(row);
@@ -104,8 +140,9 @@
                 success: function(data) {
                     console.log(data);
 
-                    purchase=data.purchase;
-                    detail_list=data.purchase_detail;
+                    purchase = data.purchase;
+                    detail_list = data.purchase_detail;
+                    jml_tercicil = data.jml_tercicil;
 
                     self.id_purchase(purchase.id_purchase);
                     self.kode_purchase(purchase.kode_purchase);
@@ -114,13 +151,15 @@
 
                     self.id_supplier(purchase.id_supplier);
                     self.nama_supplier(purchase.nama_suplier);
+                    self.tagihan_purchase(float_to_currency(purchase.total));
+                    self.jumlah_tercicil(float_to_currency(jml_tercicil));
 
-    // function add_item(id_item, kode_item, nama_item, harga_beli, qty, satuan_item, disc) {
+                    // function add_item(id_item, kode_item, nama_item, harga_beli, qty, satuan_item, disc) {
                     //
                     self.item_list([]);
-                    for(var i=0;i<detail_list.length;i++){
-                        detail=detail_list[i];
-                        self.item_list.push(new add_item( detail.id_item,detail.kode_item,detail.nama_item,detail.harga,detail.qty,detail.satuan_item,detail.disc));
+                    for (var i = 0; i < detail_list.length; i++) {
+                        detail = detail_list[i];
+                        self.item_list.push(new add_item(detail.id_item, detail.kode_item, detail.nama_item, detail.harga, detail.qty, detail.satuan_item, detail.disc));
                     }
 
                     // self.item_list.push(new add_item(data.id_item, data.kode_item, data.nama_item, data.harga_beli, '0', data.satuan_item, '0'));
