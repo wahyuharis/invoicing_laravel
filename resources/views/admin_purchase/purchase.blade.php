@@ -63,8 +63,13 @@ $purchase_model = new AdminPurchaseModel();
                             if (count($sisa_tagihan) < 1) {
                                 echo '<span class="badge badge-secondary">Belum Dibayar</span>';
                             } 
-                            elseif($sisa_tagihan[0]->sisa_tagihan < 1){
+                            elseif($sisa_tagihan[0]->sisa_tagihan == 1){
                                 echo '<span class="badge badge-primary">Lunas</span>';
+                            }
+                            elseif($sisa_tagihan[0]->sisa_tagihan < 0){
+                                echo '<span class="badge badge-primary">Pembayaran Lebih</span><br>';
+                                echo number_format($sisa_tagihan[0]->sisa_tagihan, 2);
+
                             }
                             else {
                                 echo number_format($sisa_tagihan[0]->sisa_tagihan, 2);

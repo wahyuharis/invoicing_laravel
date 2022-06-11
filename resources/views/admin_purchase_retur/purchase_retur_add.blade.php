@@ -104,26 +104,26 @@
                         </th>
                     </tr>
                     <tr>
-                        <th>Total</th>
+                        <th>Total Potongan</th>
                         <th>:</th>
                         <th>
                             <b data-bind="text:total"></b>
                         </th>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th>Dibayarkan</th>
                         <th>:</th>
                         <th>
                             <input type="text" id="jml_dibayar" data-bind="value:jml_dibayar" class="form-control thousand" placeholder="Jml Dibayarkan">
                         </th>
-                    </tr>
-                    <tr>
+                    </tr> -->
+                    <!-- <tr>
                         <th>Sisa Tagihan</th>
                         <th>:</th>
                         <th>
                             <b data-bind="text:sisa_tagihan"></b>
                         </th>
-                    </tr>
+                    </tr> -->
                 </table>
             </div>
         </div>
@@ -133,7 +133,7 @@
             <div class="col-md-12" style="">
                 <br><br>
                 <button type="submit" class="btn btn-primary">Save</button>
-                <a class="btn btn-secondary" href="<?= url('admin/purchase') ?>">Kembali</a>
+                <a class="btn btn-secondary" href="<?= url('admin/purchase_retur') ?>">Kembali</a>
             </div>
         </div>
 

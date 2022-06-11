@@ -34,13 +34,13 @@
             <thead>
                 <th>Action</th>
                 <th>Kode Purchase retur</th>
+                <th>Kode Purchase</th>
                 <th>Supplier</th>
                 <th>Tanggal</th>
                 <th>Sub</th>
                 <th>Pajak</th>
                 <th>Total</th>
-                <th>Sisa Tagihan</th>
-                <th>Barang Diterima</th>
+                <th>Barang Dikembalikan</th>
             </thead>
             <tbody>
                 <?php foreach ($purchase_retur as $row) { ?>
@@ -51,27 +51,12 @@
                             <a href="<?= url('admin/purchase_retur/delete/' .  $row->id_purchase_retur) ?>" class="delete-btn btn btn-danger btn-sm">Delete</a>
                         </td>
                         <td><?= $row->kode_retur ?></td>
+                        <td><?= $row->kode_purchase ?></td>
                         <td><?= $row->nama_suplier ?></td>
                         <td><?= $row->tanggal ?></td>
                         <td><?= number_format($row->sub, 2) ?></td>
                         <td><?= $row->pajak ?></td>
                         <td><?= number_format($row->total, 2) ?></td>
-                        <td>
-                            <?php
-                            // $sisa_tagihan = $purchase_model->get_sisa_tagihan($row->id_purchase);
-
-                            // if (count($sisa_tagihan) < 1) {
-                            //     echo '<span class="badge badge-secondary">Belum Dibayar</span>';
-                            // } 
-                            // elseif($sisa_tagihan[0]->sisa_tagihan < 1){
-                            //     echo '<span class="badge badge-primary">Lunas</span>';
-                            // }
-                            // else {
-                            //     echo number_format($sisa_tagihan[0]->sisa_tagihan, 2);
-                            // }
-                            ?>
-
-                        </td>
                         <td>
                             <?php
                             if ($row->barang_dikembalikan > 0) { ?>

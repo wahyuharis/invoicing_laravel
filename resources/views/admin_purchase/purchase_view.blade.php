@@ -126,6 +126,7 @@
                     <th> Sisa Tagihan </th>
                     <th> : </th>
                     <th id="sisa_tagihan">
+                        <?php if($sisa_tagihan < 0) echo '<span class="badge badge-danger">Pembayarab Lebih</span>' ?>
                         <?= number_format($sisa_tagihan, 2) ?>
                     </th>
                 </tr>

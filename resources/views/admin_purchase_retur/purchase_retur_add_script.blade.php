@@ -195,7 +195,7 @@
                     if (data.success) {
                         insert_id = data.data.insert_id;
                         // window.location = '<?= url('admin/purchase_retur/view/') ?>/' + insert_id;
-                        window.location = '<?= url('admin/purchase_retur/') ?>';
+                        // window.location = '<?= url('admin/purchase_retur/') ?>';
                         console.log(data);
                     } else {
                         toastr.error(data.message);

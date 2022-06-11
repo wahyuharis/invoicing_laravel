@@ -145,6 +145,7 @@ class PurchaseController extends Controller
             $insert_id = DB::getPdo()->lastInsertId();
             $data['insert_id'] = $insert_id;
 
+            
             $insert2 = array();
             foreach ($item_list as $row) {
                 $insert2['id_purchase'] = $insert_id;

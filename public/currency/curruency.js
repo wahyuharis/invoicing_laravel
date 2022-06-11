@@ -29,6 +29,10 @@ function format() {
         $(this).val(num);
     });
 
+    $('.thousand').focus(function () {
+        $(this).select();
+    });
+
 
     $('.number').keypress(function (event) {
         num = $(this).val();
@@ -49,5 +53,9 @@ function format() {
         num = numeral(num).format();
         // num = parseFloat(num);
         $(this).val(num);
+    });
+
+    $('.number').focus(function () {
+        $(this).select();
     });
 }

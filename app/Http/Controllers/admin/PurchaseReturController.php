@@ -11,7 +11,7 @@ use stdClass;
 class PurchaseReturController extends Controller
 {
 
-    private $judul="Purchase Retur";
+    private $judul = "Purchase Retur";
 
     //
     function index(Request $request)
@@ -21,7 +21,7 @@ class PurchaseReturController extends Controller
         $searchTerm = $request->input('search');
 
         $purchase_retur = DB::table('purchase_retur')
-            ->selectRaw("purchase_retur.*,supplier.*")
+            ->selectRaw("purchase_retur.*,supplier.*,purchase.kode_purchase")
             ->orderByDesc('id_purchase_retur')
             ->leftJoin('supplier', 'supplier.id_supplier', '=', 'purchase_retur.id_supplier')
             ->join('purchase', 'purchase.id_purchase', '=', 'purchase_retur.id_purchase')
@@ -69,7 +69,7 @@ class PurchaseReturController extends Controller
         $breadcrumb = view('admin_purchase.breadcrumb');
 
         $layout_data = array();
-        $layout_data['page_title'] = "Buat ".$this->judul;
+        $layout_data['page_title'] = "Buat " . $this->judul;
         $layout_data['content'] = $content;
         $layout_data['breadcrumb'] = $breadcrumb;
 
@@ -177,9 +177,125 @@ class PurchaseReturController extends Controller
         if (empty(trim($ko_array['kode_purchase_retur']))) {
             $ko_array['kode_purchase_retur'] = "PR-" . strtoupper(uniqid());
         }
-        dd($ko_array);
+        // dd($ko_array);
+
+        if (empty(trim($ko_array['id_purchase']))) {
+            $success = false;
+            $message .= "<p>Maaf Harus memilih kode Purchase Yang Diretur</p>";
+        }
+
+        if (empty(trim($ko_array['tanggal']))) {
+            $success = false;
+            $message .= "<p>Maaf Tanggal Pembelian Kosong</p>";
+        }
+
+        if (empty(trim($ko_array['tanggal_retur']))) {
+            $success = false;
+            $message .= "<p>Maaf Tanggal Retur Tidak Boleh Kosong</p>";
+        }
+
+        if (empty(trim($ko_array['id_supplier']))) {
+            $success = false;
+            $message .= "<p>Maaf Supplier Tidak Boleh Kosong</p>";
+        }
+
+        if (!is_array($ko_array['item_list'])) {
+            $success = false;
+            $message .= "<p>Maaf Terjadi Kesalahan</p>";
+        }
+
+        if (is_array($ko_array['item_list']) && count($ko_array['item_list']) < 1) {
+            $success = false;
+            $message .= "<p>Maaf Daftar Item Tidak Boleh Kosong</p>";
+        }
+
+        if ($success) {
+
+            DB::beginTransaction();
+
+            $insert['id_purchase'] = trim($ko_array['id_purchase']);
+            $insert['kode_retur'] = trim($ko_array['kode_purchase_retur']);
+            $insert['id_supplier'] = trim($ko_array['id_supplier']);
+            $insert['tanggal'] = trim($ko_array['tanggal_retur']);
+            $insert['sub'] = floatval2($ko_array['sub']);
+            $insert['pajak'] = floatval2($ko_array['pajak']);
+            $insert['total'] = floatval2($ko_array['total']);
+            $insert['catatan'] = trim($ko_array['catatan']);
+            $insert['barang_dikembalikan'] = trim($ko_array['barang_diterima']);
+
+            $db = DB::table('purchase_retur')->insert($insert);
+            $insert_id = DB::getPdo()->lastInsertId();
+            $data['insert_id'] = $insert_id;
+
+            $item_list = $ko_array['item_list'];
+
+            $insert2 = array();
+            $insert2['id_purchase_retur'] = $insert_id;
+            foreach ($item_list as $row) {
+                $insert2['id_purchase_retur'] = $insert_id;
+                $insert2['id_item'] = $row['id_item'];
+                $insert2['harga'] = floatval2($row['harga_beli']);
+                $insert2['qty'] = floatval2($row['qty']);
+                $insert2['disc'] = floatval2($row['disc']);
+                $insert2['sub'] = floatval2($row['sub']);
+
+                $db1 = DB::table('purchase_retur_detail')->insert($insert2);
+            }
+
+            // $insert3 = array();
+            // if (floatval2($ko_array['total']) > 0) {
+            //     $insert3['keperluan'] = "purchase retur";
+            //     $insert3['tabel'] = "purchase";
+            //     $insert3['id_tabel'] = trim($ko_array['id_purchase']);
+            //     $insert3['total'] = floatval2($ko_array['total']) * (-1);
+            //     $insert3['keterangan'] = "Retur Pembelian Barang";
+
+            //     $db2 = DB::table('cashflow')->insert($insert3);
+            // }
+
+            if ($ko_array['barang_diterima'] == 1) {
+                $insert4 = array();
+                foreach ($item_list as $row4) {
+
+                    $db3 = DB::table('stock')
+                        ->where('id_item', $row4['id_item'])
+                        ->orderByDesc('id_stock')
+                        ->limit(1)
+                        ->get();
+
+                    $qty_akhir = 0;
+                    $qty_awal = 0;
+                    if (count($db3) > 0) {
+                        $db3arr = $db3->toArray();
+
+                        $qty_awal = $db3arr[0]->qty_akhir;
+
+                        $qty_akhir = $qty_awal - floatval2($row4['qty']);
+                    } else {
+                        $qty_akhir = $qty_akhir - floatval2($row4['qty']);
+                    }
 
 
-        return response()->json();
+                    $insert4['id_item'] = $row4['id_item'];
+                    $insert4['qty_awal'] = floatval2($qty_awal);
+                    $insert4['qty_in'] = floatval2($row4['qty']);
+                    $insert4['qty_akhir'] = $qty_akhir;
+
+                    // dd($insert4);
+
+                    $db4 = DB::table('stock')->insert($insert4);
+                }
+            }
+            DB::commit();
+
+        }
+
+        $res = array(
+            'success' => $success,
+            'message' => $message,
+            'data' => $data
+        );
+
+        return response()->json($res);
     }
 }
